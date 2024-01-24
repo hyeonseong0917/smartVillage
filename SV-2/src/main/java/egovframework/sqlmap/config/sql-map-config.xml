@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMapConfig PUBLIC "-//iBATIS.com//DTD SQL Map Config 2.0//EN"
+    "http://www.ibatis.com/dtd/sql-map-config-2.dtd">
+
+<sqlMapConfig>
+	<sqlMap resource="egovframework/sqlmap/com/uat/uia/EgovLoginUsr_SQL.xml"/>
+	
+	<sqlMap resource="egovframework/sqlmap/com/cop/bbs/EgovBoard_SQL.xml"/>
+	
+	<sqlMap resource="egovframework/sqlmap/com/uss/umt/EgovUserManage_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/com/uss/umt/EgovMberManage_SQL.xml"/>
+				
+	<sqlMap resource="egovframework/sqlmap/smartVillage/usr/waterEnergy/WaterEnergy_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/smartVillage/usr/carCare/CarCare_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/smartVillage/usr/environment/Environment_SQL.xml"/>
+	<sqlMap resource="egovframework/sqlmap/smartVillage/usr/cctv/Cctv_SQL.xml"/>
+</sqlMapConfig>

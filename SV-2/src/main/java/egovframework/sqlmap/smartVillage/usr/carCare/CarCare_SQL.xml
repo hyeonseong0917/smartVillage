@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="CarCare">
+
+	<typeAlias alias="CarRegist" type="egovframework.smartVillage.usr.carCare.entity.CarRegist"/>
+	<typeAlias alias="ChargeHist" type="egovframework.smartVillage.usr.carCare.entity.ChargeHist"/>
+
+	<resultMap id="carInOutVo" class="egovframework.smartVillage.usr.carCare.vo.CarInOutVo">
+		<result property="houseDongHo" column="house_dong_ho" columnIndex="1"/>
+		<result property="carNumber" column="car_number" columnIndex="2"/>
+		<result property="carInOutType" column="car_in_out_type" columnIndex="3"/>
+		<result property="carInOutDate" column="car_in_out_date" columnIndex="4"/>
+		<result property="carInOutTime" column="car_in_out_time" columnIndex="5"/>
+	</resultMap>
+		
+	<select id="CarCareDAO.selectCarRegistInfo" parameterClass="string" resultClass="CarRegist" >
+		SELECT
+			house_dong_ho AS houseDongHo,
+			car_number AS carNumber,
+			DATE_FORMAT(STR_TO_DATE(reg_date,'%Y%m%d'), '%Y.%m.%d') AS regDate
+		FROM
+			tbl_car_regist
+		WHERE
+			house_dong_ho = #houseDongHo#
+		ORDER BY
+			reg_date
+	</select>
+	
+	<select id="CarCareDAO.selectCarInOutHist" parameterClass="string" resultMap="carInOutVo" >
+		SELECT
+			car_regist.house_dong_ho,
+			car_regist.car_number,
+			car_in_out_hist.car_in_out_type,
+			DATE_FORMAT(car_in_out_hist.car_in_out_datetime, '%Y. %m. %d') AS car_in_out_date,
+			DATE_FORMAT(car_in_out_hist.car_in_out_datetime, '%h:%i') AS car_in_out_time
+		FROM
+			tbl_car_in_out_hist car_in_out_hist,
+			tbl_car_regist car_regist
+		WHERE
+			car_in_out_hist.car_number = car_regist.car_number
+			AND car_regist.house_dong_ho = #houseDongHo#
+		ORDER BY
+			car_in_out_datetime desc
+		LIMIT 10
+	</select>
+	
+	<select id="CarCareDAO.selectChargeHist" parameterClass="string" resultClass="ChargeHist" >
+		SELECT
+			house_dong_ho AS houseDongHo,
+			reg_date AS regDate,
+			biot_model_name AS biotModelName,
+			charge_state AS chargeState
+		FROM
+			tbl_charge_hist
+		WHERE 
+			(house_dong_ho, biot_model_name, reg_date) in (
+				SELECT
+					house_dong_ho, 
+					biot_model_name, 
+					max(reg_date)
+				FROM
+					tbl_charge_hist
+				WHERE
+					house_dong_ho = #houseDongHo#
+				GROUP BY
+					biot_model_name,
+					house_dong_ho
+			)
+		ORDER BY biot_model_name
+	</select>
+</sqlMap>

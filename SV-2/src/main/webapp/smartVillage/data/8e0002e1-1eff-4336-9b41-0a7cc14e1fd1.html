@@ -1,0 +1,887 @@
+<!doctype html>
+<html>
+
+<!-- Mirrored from aida.kisti.re.kr/data/8e0002e1-1eff-4336-9b41-0a7cc14e1fd1 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:53 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- /Added by HTTrack -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="cache-Control" content="co-cache" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>논문 연구분야 분류 데이터</title>
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../css/bootstrap.mina6f1.css?v=20191217">
+<link rel="stylesheet" href="../css/layout231e.css?v=20220916">
+<link rel="stylesheet" href="../css/mquery6b9f.css?v=20211104">
+<link rel="stylesheet" href="../css/slidebars.css">
+<link rel="stylesheet" href="../lib/pretty-checkbox/pretty-checkbox.min.css" />
+<link rel="stylesheet" href="../lib/waitMe/waitMe.min.css" />
+<link rel="stylesheet" href="../css/owl.carousel.min.css">
+<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+<link rel="stylesheet" href="../css/animate.min.css">
+<link rel="stylesheet" href="../css/custom6b9f.css?v=20211104">
+
+<!-- <link rel="stylesheet" href="/lib/ckeditor/ckeditor.css" />
+    <link rel="stylesheet" href="/lib/ckeditor/ckeditor-content.css" />
+    <link rel="stylesheet" href="/lib/ckeditor/ckeditor-custom.css" /> -->
+<link rel="stylesheet" href="../lib/sweetalert/sweetalert2.min.css" />
+<style type="text/css">
+/* custom css 이동.. */
+    	.list_search_box .ls_search_bt {
+	border: none;
+}
+.write_bt_box .normal_bt {
+	border: none;
+}
+.view_img_box img {
+	max-height: 400px;
+}
+.d_view_dl dd {
+	font-size: inherit;
+}
+.d_view_dl dd.d_view_except {
+	color: inherit;
+	padding: 0;
+	background: none;
+}
+.data_view_box .w_r_add {
+	cursor: pointer;
+}
+.ds_imgs {
+	position: initial;
+	padding: 10px 20px 0 0;
+	float: left;
+}
+.ds_img .ds_img_field {
+	margin-left: 10px;
+	vertical-align: bottom;
+}
+.ds_img .ds_img_field .ds_img_remove_btn {
+	margin-top: 25px;
+	background: #e8881f;
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 0 5px;
+	border-radius: 5px;
+}
+.ds_type_box ul li em, .ds_type_box ul li .ds_info_i02, .ds_type_box ul li .ds_info_i03 {
+	background-position-y: 50%;
+}
+.filedata_list_box {
+	background: none;
+}
+.btn {
+	border-radius: 0;
+}
+.form-control {
+	border-radius: 0;
+}
+.alert {
+	border-radius: 0;
+}
+.modal-content {
+	border-radius: 0;
+	border: none;
+}
+.panel {
+	margin-bottom: 0;
+	border-radius: 0;
+	border: none;
+}
+.panel .panel-heading {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.panel button.close {
+	display: block;
+	position: absolute;
+	top: 17px;
+	right: 22px;
+	width: 25px;
+	height: 25px;
+	background: url('../img/common/modal_btn.png') -100px -400px no-repeat;
+	z-index: 100;
+	text-indent: -9999em;
+	opacity: .5;
+}
+.panel button.close:focus, .panel button.close:hover {
+	opacity: 1;
+}
+.panel .panel-heading {
+	height: 60px;
+	background: #4d89e3 url('../img/background/login_pattern_bg.png') no-repeat 0 0;
+}
+.panel .panel-heading .panel-title {
+	line-height: 40px;
+	text-align: center;
+	font-weight: normal;
+	font-size: 18px;
+	color: #fff;
+}
+.ds_type_box ul li .ds_type_text {
+	background: url('../img/background/ds_type_icon01.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_sound {
+	background: url('../img/background/ds_type_icon02.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_image {
+	background: url('../img/background/ds_type_icon03.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_movie {
+	background: url('../img/background/ds_type_icon04.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_model {
+	background: url('../img/background/ds_type_icon05.png') no-repeat 0px 0px;
+}
+.d_view_dl pre {
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+	background-color: inherit;
+	border: none;
+	font-family: inherit;
+}
+.top_tab_rbt.top_head_rbt {
+	right: 20px;
+	top: 25px;
+}
+.top_tab_rbt.top_head_rbt .normal_bt {
+	width: 100px;
+	height: 35px;
+	line-height: 35px;
+}
+.m_v_text:after {
+	background: none;
+}
+.bottom_home button {
+	text-align: center;
+	display: inline-block;
+	line-height: 50px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	color: #333;
+	width: 440px;
+}
+.header_inner h1 a {
+	width: 393px;
+}
+</style>
+
+<!--[if lt IE 9]>
+    	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+<link rel="stylesheet" href="../lib/json-viewer/jquery.json-viewer.css">
+<style type="text/css">
+    	.preview-text.preview-scroll { max-height: 700px; overflow: auto; }
+    	.d_s_title { position: relative; }
+    	.item-file-download-btn { font-size: 14px; }
+    	.filedata_bt { right: 0; top: 0; }
+    	.download_bt { right: 170px !important; top: 0; }
+    	.storage_bt { right: 0 !important; top: 0; cursor: pointer; }
+    	.d_view_dl dd { padding: 0; background: none; }
+    	.data_view_line.preview { width: 100%; height: 100%; }
+    	.d_view_num dd { font-family: inherit; }
+	</style>
+<meta property="og:title" content="논문 연구분야 분류 데이터">
+<meta property="og:description" content="관리자 Text (2022-04-04) http://doi.org/10.23057/50 논문 연구분야 분류 데이터">
+<meta name="citation_title" content="논문 연구분야 분류 데이터">
+<meta name="citation.doi" content="10.23057/50">
+<meta name="citation_abstract_html_url" content="">
+<meta name="citation_authors" content="관리자">
+<meta name="citation_publication_date" content="2022/04/04">
+
+<!-- Styles -->
+<link rel="stylesheet" href="../lib/toastui-editor/tui-editor.css">
+</link>
+<link rel="stylesheet" href="../lib/toastui-editor/tui-editor-contents.css">
+</link>
+<link rel="stylesheet" href="../lib/toastui-editor/codemirror.css">
+</link>
+<link rel="stylesheet" href="../lib/toastui-editor/github.min.css">
+</link>
+<!-- Scripts -->
+<script src="../lib/toastui-editor/tui-editor-Editor-full.js"></script>
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org/",
+  "@type":"Dataset",
+  "name":"논문 연구분야 분류 데이터",
+  "version":""
+  , "description":"&lt;ul&gt;&lt;li&gt;국가과학기술표준분류체계 기반의 분류 문제를 해결하기 위한 데이터셋&lt;/li&gt;&lt;li&gt;국내 논문 3만 건을 대상으로 전문가가 연구분야를 분류한 데이터셋&lt;/li&gt;&lt;/ul&gt;"
+  , "identifier":[
+        "https://doi.org/10.23057/50"
+              ]
+  , "creator":[{
+     "@type":"Person",
+     "name":"관리자"
+  }
+  , {
+     "@type":"Person",
+     "name":"한국과학기술정보연구원"
+  }
+  ]     
+  , "license":"CC BY-NC"
+}
+</script>
+</head>
+<body>
+<div id="sb-site">
+  <div class="header_wrap">
+    <div class="header_inner">
+      <h1><a href="../index.html">KISTI 기계학습 데이터 공유·활용 서비스</a></h1>
+      <div class="top_nav_wrap">
+        <ul id="gnb" class="gnb">
+          <li class="menu"> <a href="index.html" class="nav_menu_a active_nav">데이터셋</a>
+            <div class="sub_menu">
+              <ul class="nav_sub_icon01">
+                <li><a href="index.html">검색</a></li>
+                <li><a href="../gallery/index.html">활용갤러리</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu"> <a href="../my/data/index.html" class="nav_menu_a ">코드모델</a>
+            <div class="sub_menu" style="display: none;">
+              <ul style="display: none;" class="nav_sub_icon03">
+                <li><a href="../my/data/index.html">내 데이터</a></li>
+                <li><a href="../my/request/index.html">활용신청</a></li>
+                <!--
+                            <li><a href="#">활용갤러리</a></li>
+                            -->
+                <li><a href="../my-openapi/request/index.html">오픈API</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu"> <a href="../contest/index.html" class="nav_menu_a">경진대회</a>
+            <div class="sub_menu last_menu " style="display: none;">
+              <ul style="display: none;">
+                <li><a href="../contest/index.html">2022 경진대회</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu"> <a href="../contest/index.html" class="nav_menu_a">워크벤치</a>
+            <div class="sub_menu last_menu " style="display: none;">
+              <ul style="display: none;">
+                <li><a href="../contest/index.html">2022 경진대회</a></li>
+              </ul>
+            </div>
+          </li>
+          <li class="menu"> <a href="../contest/index.html" class="nav_menu_a">소개</a>
+            <div class="sub_menu last_menu" style="display: none;">
+              <ul style="display: none;" class="nav_sub_icon04">
+                <li><a href="../about/intro.html">소개</a></li>
+                <li><a href="../about/terms.html">이용약관</a></li>
+                <li><a href="../about/guide.html">이용안내</a></li>
+                <li><a href="../about/openapi.html">오픈API안내</a></li>
+                <li><a href="../notice/index.html">공지사항</a></li>
+                <!-- <li><a href="/notice/"></a></li> -->
+              </ul>
+            </div>
+          </li>
+        </ul>
+      </div>
+      <div class="gnb_bg">
+        <div class="bg_wrap"></div>
+      </div>
+      <div class="gnb_back_bg"  style="display:none;">nav bg</div>
+      <div class="top_right_box">
+        <div class="header_login_col"> <a href="auth/login.html" class="header_mypage_bt"><span>마이페이지</span></a> </div>
+        <div class="header_login_col"> <a href="../auth/login.html" class="header_login_bt"><span>로그인</span></a> </div>
+        <div class="tablet_nav sb-toggle-right"> <a href="#" class="tablet_nav_bt" id="mnav_bt"> <span class="line"></span> <span class="line"></span> <span class="line"></span> </a> </div>
+      </div>
+      <!-- top_right_box : e  --> 
+    </div>
+  </div>
+  <!-- header_wrap: e -->
+  <div class="ds_view_top" style="background: url('../img/background/dataset_sub_top_bg.jpg') no-repeat 50% 0;background-attachment: fixed;">
+    <div class="ds_view_inner">
+      <h3>데이터셋</h3>
+      <p>논문 연구분야 분류 데이터<a id="remove_8e0002e1-1eff-4336-9b41-0a7cc14e1fd1" href="#" onClick="deleteBookmark('8e0002e1-1eff-4336-9b41-0a7cc14e1fd1')"><span><em class="bookmark_full">북마크</em></span></a></p>
+      <p class="info">국내 논문 PDF를 기계학습이 가능한 텍스트 형태로 구축</p>
+      <div class="ds_view_info"> <span class="ds_type_s"><em class="ds_i_text">텍스트</em></span> <span><em  class="ds_info_i01">Ver 1</em></span> <span><em class="ds_info_i02">관리자</em></span> <span><em class="ds_info_i03">2022.04.19</em></span> </div>
+    </div>
+  </div>
+  <div class="top_tab_wrap">
+    <div class="top_tab_inner">
+      <ul>
+        <li class="tab_data"><a href="8e0002e1-1eff-4336-9b41-0a7cc14e1fd1.html" class="on"><em>데이터</em></a></li>
+        <li><a href="8e0002e1-1eff-4336-9b41-0a7cc14e1fd1/gallery/index.html"  class=""><em class="sub_cate_icon07">활용<span>12</span></em></a></li>
+        <li><a href="8e0002e1-1eff-4336-9b41-0a7cc14e1fd1/discussion/index.html" class=""><em class="sub_cate_icon08">토론<span>150</span></em></a></li>
+      </ul>
+      <div class="top_tab_rbt"> <a href=".html" class="icon_bt _list">목록</a> </div>
+    </div>
+  </div>
+  <div class="sub_container">
+  
+  
+  
+  
+    <div class="brick mgb_20">
+      <ul class="nav nav-tabs">
+        <li class="nav-item"> <a class="nav-link active" href="#">요약</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#">설명</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#">구축방법</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#">제한사항</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#">용어</a> </li>
+      </ul>
+      
+      <div class="data_view_box" >
+        <div class="data_serch_box" style="background: none;">
+          <div class="d_s_view" style="margin-left: 20px;">
+            요약 들어갑니다. 
+          </div>
+        </div>
+      </div>
+      
+      <div class="data_view_box" style="display: none;">
+        <div class="data_serch_box" style="background: none;">
+          <div class="d_s_view" style="margin-left: 20px;">
+            설명내용이 들어갑니다. 
+          </div>
+        </div>
+      </div>
+      
+      <div class="data_view_box" style="display: none;">
+        <div class="data_serch_box" style="background: none;">
+          <div class="d_s_view" style="margin-left: 20px;">
+            구축방법 들어갑니다. 
+          </div>
+        </div>
+      </div>
+      
+      <div class="data_view_box" style="display: none;">
+        <div class="data_serch_box" style="background: none;">
+          <div class="d_s_view" style="margin-left: 20px;">
+            제한사항 들어갑니다. 
+          </div>
+        </div>
+      </div>
+      
+      <div class="data_view_box" style="display: none;">
+        <div class="data_serch_box" style="background: none;">
+          <div class="d_s_view" style="margin-left: 20px;">
+            용어 들어갑니다. 
+          </div>
+        </div>
+      </div>
+      
+      
+    </div>
+    
+    
+    
+    
+    <div class="brick mgb_20">
+      <div class="data_view_box">
+        <h4>논문 연구분야 분류 데이터</h4>
+        <div class="data_view_inner">
+          <dl class="d_view_dl">
+            <dt><strong>개요</strong></dt>
+            <dd class="ck ck-content">
+              <input type="hidden" name="metadata.Description" id="Description" value="&lt;ul&gt;&lt;li&gt;국가과학기술표준분류체계 기반의 분류 문제를 해결하기 위한 데이터셋&lt;/li&gt;&lt;li&gt;국내 논문 3만 건을 대상으로 전문가가 연구분야를 분류한 데이터셋&lt;/li&gt;&lt;/ul&gt;"/>
+              <div id="div_Description"></div>
+              <script>
+					        
+								initVal = document.querySelector('input[id="Description"]').value;
+								window['editor_Description'] = new tui.Editor.factory({
+								  	  el: document.querySelector('div[id="div_Description"]'),
+								  	  viewer: true,
+								  	  initialValue: initVal
+								  	});
+						</script> 
+            </dd>
+          </dl>
+          <!--             <dl class="d_view_dl">
+            <dt><strong>개요</strong></dt>
+            <dd class="ck ck-content">
+            	&lt;ul&gt;&lt;li&gt;국가과학기술표준분류체계 기반의 분류 문제를 해결하기 위한 데이터셋&lt;/li&gt;&lt;li&gt;국내 논문 3만 건을 대상으로 전문가가 연구분야를 분류한 데이터셋&lt;/li&gt;&lt;/ul&gt;</dd>
+        </dl>
+     --> 
+          
+          <!-- 					   <dl class="d_view_dl d_view_num">
+				            <dt><strong>DOI</strong></dt>
+				            <dd style="margin-left: 20px;">
+				                <a href="http://doi.org/10.23057/50?urlappend=?version=1" class="btn btn-link" target="_blank" style="font-weight: bold; color: #337ab7; padding-top: 3px; font-size: 15px;">10.23057/50 <span class="glyphicon glyphicon-new-window"></span></a>
+				            </dd>
+				        </dl>
+	                 -->
+          <dl class="d_view_dl d_view_num">
+            <dt><strong>DOI</strong></dt>
+            <dd style="margin-left: 20px;"> <a href="http://doi.org/10.23057/50?urlappend=?version=1" class="btn btn-link" target="_blank" style="font-weight: bold; color: #337ab7; padding-top: 3px; font-size: 15px;">10.23057/50 <span class="glyphicon glyphicon-new-window"></span></a> </dd>
+          </dl>
+          
+          <!-- 메타데이터 입력 -->
+          <dl class="d_view_dl">
+            <dt> 형식 <span class="d_t_csv">CSV</span> </dt>
+            <dd class="ck ck-content">
+              <input type="hidden" name="metadata.FormatDescription" id="FormatDescription" value="&lt;figure class=&quot;table&quot;&gt;&lt;table style=&quot;width: 60%;&quot;&gt;&lt;colgroup&gt;&lt;col width=&quot;50%&quot;&gt;&lt;col width=&quot;50%&quot;&gt;&lt;/colgroup&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;&lt;p style=&quot;text-align:center;&quot;&gt;컬럼명&lt;/p&gt;&lt;/td&gt;&lt;td&gt;&lt;p style=&quot;text-align:center;&quot;&gt;설명&lt;/p&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;id&lt;/td&gt;&lt;td&gt;논문&amp;nbsp;id&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;year&lt;/td&gt;&lt;td&gt;년도&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;title_ko&lt;/td&gt;&lt;td&gt;논문제목(한글)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;title_en&lt;/td&gt;&lt;td&gt;논문제목(영문)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;journal_ko&lt;/td&gt;&lt;td&gt;학술지명(한글)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;journal_en&lt;/td&gt;&lt;td&gt;학술지명(영문)&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;text&lt;/td&gt;&lt;td&gt;논문본문&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;code1&lt;/td&gt;&lt;td&gt;과학기술표준분류코드&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;code2&lt;/td&gt;&lt;td&gt;과학기술표준분류코드&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;code3&lt;/td&gt;&lt;td&gt;과학기술표준분류코드&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;&lt;/figure&gt;&lt;ul&gt;&lt;li&gt;논문의 연구분야는 국가과학기술표준분류(2018년 개정)의 소분류로 code1, code2, code3 항목에 입력되어 있으며, 최대 3개까지 입력되어 있기 때문에 code2, code3 값이 비어 있는 경우 존재&lt;/li&gt;&lt;/ul&gt;"/>
+              <div id="div_FormatDescription"></div>
+              <script>
+							        
+										initVal = document.querySelector('input[id="FormatDescription"]').value;
+										window['editor_FormatDescription'] = new tui.Editor.factory({
+										  	  el: document.querySelector('div[id="div_FormatDescription"]'),
+										  	  viewer: true,
+										  	  initialValue: initVal
+										  	});
+								</script> 
+              <!-- <figure class="table"><table style="width: 60%;"><colgroup><col width="50%"><col width="50%"></colgroup><tbody><tr><td><p style="text-align:center;">컬럼명</p></td><td><p style="text-align:center;">설명</p></td></tr><tr><td>id</td><td>논문&nbsp;id</td></tr><tr><td>year</td><td>년도</td></tr><tr><td>title_ko</td><td>논문제목(한글)</td></tr><tr><td>title_en</td><td>논문제목(영문)</td></tr><tr><td>journal_ko</td><td>학술지명(한글)</td></tr><tr><td>journal_en</td><td>학술지명(영문)</td></tr><tr><td>text</td><td>논문본문</td></tr><tr><td>code1</td><td>과학기술표준분류코드</td></tr><tr><td>code2</td><td>과학기술표준분류코드</td></tr><tr><td>code3</td><td>과학기술표준분류코드</td></tr></tbody></table></figure><ul><li>논문의 연구분야는 국가과학기술표준분류(2018년 개정)의 소분류로 code1, code2, code3 항목에 입력되어 있으며, 최대 3개까지 입력되어 있기 때문에 code2, code3 값이 비어 있는 경우 존재</li></ul> --> 
+            </dd>
+          </dl>
+          
+          <!-- 메타데이터 입력 -->
+          
+          <div class="d_view_dl" id="data_info">
+            <p class="view_sm_title">데이터 정보</p>
+            <div class="d_v_tbl_wrap">
+              <table class="d_v_tbl">
+                <colgroup>
+                <col style="width:14%;" />
+                <col style="width:25%;" />
+                <col style="width:14%;" />
+                <col>
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th>생산자</th>
+                    <td>한국과학기술정보연구원</td>
+                    <th>제공기관</th>
+                    <td>한국과학기술정보연구원</td>
+                  </tr>
+                  <tr>
+                    <th>건수</th>
+                    <td>30,000건</td>
+                    <th>발행년도</th>
+                    <td> 2022 </td>
+                  </tr>
+                  <tr>
+                    <th>라이선스</th>
+                    <td>저작자표시-비영리 (<a href="../about/terms.html" style="color: #3682ff;">데이터 이용동의</a>)</td>
+                    <th>NTIS 과제 고유번호</th>
+                    <td>1711149486</td>
+                  </tr>
+                  <tr>
+                    <th>저작권</th>
+                    <td colspan="3">한국과학기술정보연구원</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <dl class="d_view_dl">
+            <dt><strong>Cite as</strong></dt>
+            <dd class="ck ck-content"> 한국과학기술정보연구원 (2022) :
+              논문 연구분야 분류 데이터.
+              Version 1.0.
+              한국과학기술정보연구원.			                https://doi.org/10.23057/50. </dd>
+          </dl>
+          <div>
+            <p class="view_sm_title">데이터 이력</p>
+            <div class="d_v_tbl_wrap" style="max-height: 110px; overflow: auto;">
+              <table class="d_v_tbl">
+                <colgroup>
+                <col style="width:14%;" />
+                <col>
+                </colgroup>
+                <tbody>
+                  <tr>
+                    <th> <strong>Version 1</strong> 
+                    <td> 2022-04-04, <span> 10.23057/50</span></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <style>
+		    .nav-tabs {
+		        background: #fff; padding:10px 0 0 10px; font-size: 17px;color: #333;font-family: NanumSquare;font-weight: 550; letter-spacing:-.1rem;
+		    }
+		    .nav-tabs .nav-link {
+                color: #9d9d9d;
+            }
+            .nav-tabs .meta-view {
+                color: #9d9d9d;
+            }
+	        .nav-tabs .nav-link.active {
+			    color: #333; font-weight:600;
+			    background-color: #fff;
+			    border-color: #2983F5 #2983F5 #fff #2983F5;
+			}
+			.nav-tabs .nav-link.active:after{ content: '';
+				display: block;
+				width: 28px;
+				height: 1px;
+				position: absolute;
+				left: calc(50% - 14px);
+				bottom: 0px;
+				background: #134BF2;}
+			.nav-tabs .meta-view.active {
+			    color: #1b57ba;
+			    background-color: #fff;
+			    border-color: #dee2e6 #dee2e6 #fff #2983F5;
+			}
+			.nav-tabs>li:first-child>a {
+                /*border-left: none;*/
+            }
+            .nav-tabs>li>a {
+                margin-right: 0;
+            }
+		</style>
+    <div class="brick mgb_20">
+      <ul class="nav nav-tabs">
+        <li class="nav-item"> <a class="nav-link active" href="#">데이터 탐색</a> </li>
+        <li class="nav-item"> <a class="nav-link" href="#">데이터 현황</a> </li>
+      </ul>
+      <div class="data_view_box">
+        <div class="data_serch_box">
+          <div class="d_s_left">
+            <h5>데이터 파일 목록</h5>
+          </div>
+          <div class="d_s_view">
+            <div class="data_info_box"> 12345667 </div>
+          </div>
+        </div>
+      </div>
+      <div class="data_view_box" style="display: none;">
+        <div class="data_serch_box" style="background: none;">
+          <div class="d_s_view" style="margin-left: 20px;">
+            <div class="data_info_box">
+              <dl>
+                <dt>파일설명</dt>
+                <dd>국내 논문 QA 데이터셋</dd>
+              </dl>
+              <dl>
+                <dt>자료유형</dt>
+                <dd>JSON</dd>
+              </dl>
+            </div>
+            <div class="item-file-preview">
+              <div class="data_view_line preview-count">
+                <div class="preview-text preview-scroll">
+                  <div class="d_state_box"> ``````````````````````````````````````````````````````` </div>
+                </div>
+                <div class="preview-text preview-scroll">
+                  <div class="d_state_box"> ```````````````````````````````````````````````````````` </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- sub_container : e-->
+  <div class="footer_wrap">
+    <div class="footer_inner">
+      <p><span>우)34141 대전광역시 유성구 대학로 245 한국과학기술정보연구원. <a href="mailto:aida@kisti.re.kr" style="color: white; margin-left: 10px;">E-Mail. aida@kisti.re.kr</a></span> COPYRIGHT@2021 KISTI.ALL RIGHTS RESERVED.</p>
+      <div class="footer_link_box"> <a href="javascript:void(0)" class="f_l_text">주요 사이트</a>
+        <div class="f_l_drop">
+          <ul>
+            <li><a href="https://www.kisti.re.kr/" target="_blank">KISTI</a></li>
+            <li><a href="https://www.ntis.go.kr/" target="_blnak">NTIS</a></li>
+            <li><a href="https://dataon.kisti.re.kr/" target="_blnak">DataON</a></li>
+            <li><a href="https://scienceon.kisti.re.kr/" target="_blnak">ScienceON</a></li>
+            <li><a href="https://accesson.kisti.re.kr/" target="_blnak">AccessON</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer_term"> <a href="../about/privacy.html">개인정보처리방침</a> </div>
+    </div>
+  </div>
+</div>
+<!-- sb-site --> 
+
+<!-- 모바일 화면에서 오른쪽 메뉴 -->
+<div class="sb-slidebar sb-right">
+  <div class="right_nav_box">
+    <div class="mobile_user_box">
+      <div class="mn_user_name"> <a href="../auth/login.html">Login</a> </div>
+    </div>
+    <div id="accordion_mobile" class="left_nav_inner">
+      <h3><em>데이터셋</em></h3>
+      <div class="left_sub_menu">
+        <ul>
+          <li><a href="index.html">검색</a></li>
+          <li><a href="../gallery/index.html">활용갤러리</a></li>
+        </ul>
+      </div>
+      <h3><em>My데이터</em></h3>
+      <div class="left_sub_menu">
+        <ul>
+          <li><a href="../my/data/index.html">내 데이터</a></li>
+          <li><a href="../my/request/index.html">활용신청</a></li>
+          <!--
+                    <li><a href="#">활용갤러리</a></li>
+                    -->
+          <li><a href="../my-openapi/request/index.html">오픈API</a></li>
+        </ul>
+      </div>
+      <h3><em>소개</em></h3>
+      <div class="left_sub_menu">
+        <ul>
+          <li><a href="../about/intro.html">소개</a></li>
+          <li><a href="../about/terms.html">이용약관</a></li>
+          <li><a href="../about/guide.html">이용안내</a></li>
+          <li><a href="../about/openapi.html">오픈API안내</a></li>
+          <li><a href="../notice/index.html">공지사항</a></li>
+        </ul>
+      </div>
+      <h3><em>경진대회</em></h3>
+      <div class="left_sub_menu contest">
+        <ul>
+          <li><a href="../contest/index.html">2022 경진대회</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="../js/jquery-ui.js"></script> 
+<script type="text/javascript" src="../js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="../js/vue.js"></script> 
+<script type="text/javascript" src="../js/jquery.scroll.pack.js"></script> 
+<script type="text/javascript" src="../lib/waitMe/waitMe.min.js"></script> 
+<script type="text/javascript" src="../js/common.js"></script> 
+<script type="text/javascript" src="../js/utilsed84.js?v=20200729"></script> 
+<script type="text/javascript" src="../js/slidebars.js"></script> 
+<script type="text/javascript" src="../js/owl.carousel.js"></script> 
+<script type="text/javascript" src="../lib/sweetalert/sweetalert2.min.js"></script> 
+<script type="text/javascript">
+BASE = "";
+login = "";
+
+$(function() {
+	$.slidebars();
+	$(".sub_search_bt").click(function(){
+		$(".mobile_s_inner").toggleClass("search_active");
+	});
+	$(".m_toggle_bt").click(function(){
+		$(".m_toggle_box").toggleClass("tm_open_type");
+	});
+	// 오른쪽 퀵 메뉴
+	var lnb = $('.right_nav_box').offset().top;
+ 	$(window).scroll(function(){
+		var window = $(this).scrollTop();
+		if(lnb <= window) {
+			$(".right_nav_box").addClass("r_q_fixed");
+		} else {
+			$(".right_nav_box").removeClass("r_q_fixed");
+		}
+ 	})
+
+});
+</script> 
+<script type="text/javascript" src="../lib/ckeditor/ckeditor.js"></script> 
+<script type="text/javascript" src="../lib/ckeditor/custom-ckeditor.js"></script> 
+<script type="text/javascript" src="../lib/json-viewer/jquery.json-viewer.js"></script> 
+<script type="text/javascript" src="../js/bookmark.js"></script> 
+<script src="../../code.highcharts.com/highcharts.html"></script> 
+<script type="text/javascript">
+		$(function() {
+			
+			$('.item-file').on('click', function(e) {
+				
+				var $file = $(this);
+				var $fileBox = $(this).closest('.data_view_box');
+				$fileBox.waitMe();
+				
+				$.ajax({
+					url: '/data/8e0002e1-1eff-4336-9b41-0a7cc14e1fd1/' + $(this).data('id') + "?preview"
+				}).done(function(html) {
+					$fileBox.find('.item-file-preview').html(html);
+					$file.closest('ul').find('a').removeClass('on');
+					$file.addClass('on');
+					
+					$fileBox.find('.item-file-name').html($file.data('name'));
+					$fileBox.find('.item-file-size').html('(' + $file.data('size') + ')');
+					
+					$('#' + $file.data('id')).show().siblings('.item-file-download-btn').hide();
+					
+					$fileBox.waitMe('hide');
+				});
+				
+				e.preventDefault();
+			}).eq(0).click();
+			
+			
+			$(document).on('click', 'a.preview', function(e) {
+				var img = $(this).attr('href');
+				var $modal = modal(img);
+				e.preventDefault();
+			});
+
+			$(document).on('click', '[data-toggle=remote]', function(e) {
+				var $target = $(this);
+				console.log($target.data('target'));
+				var $modal = modal($target.data('target'), $target.data('modal-size'));
+				$modal.on('modal.success', function() {
+					location.reload();
+				});
+				e.preventDefault();
+			});
+
+			$('.nav-link').each(function(index) {
+				
+				$(this).on('click', function(e) {
+				    var $viewBoxs = $($(this).closest('.brick').find('.data_view_box')[index]);
+				    $viewBoxs.show();
+				    $viewBoxs.siblings('.data_view_box').hide();
+
+				    $('.nav-link').removeClass('active');
+				    $($('.nav-link')[index]).addClass('active');
+				    e.preventDefault();
+				});
+			});
+			
+			$(document).on('click', '#copyToRepository', function() {
+				var $this = $(this);
+				var filename = $(this).data('filename');
+				var fileId = $(this).data('file-id');
+				$.ajax({
+					type: 'post',
+					url : '/request/?do=copy',
+					//data: $.param($this.data()),
+					data: { fileId : fileId }
+				}).done(function(data) {
+					if(data == true) {
+						 swal({
+	  		    	type: 'success',
+	  		    	html: filename + ' 파일을 내 저장소의 [ShareFile] 폴더에 저장했습니다. '
+	  		 		});
+					}
+				}).fail(function(ex) {
+				})
+			})
+
+		});
+	</script> 
+<script type="text/javascript">
+        var data = [];
+        $('.chart-items').each(function(i) {
+            if(i < 20 ) {
+                data.push([$(this).data('name'), $(this).data('value')]);
+            }
+        });
+
+        if(data.length > 0) {
+	        Highcharts.chart('container', {
+	            chart: {type: 'column'},
+	            title: {text: ''},
+	            xAxis: {
+	                type: 'category',
+	                labels: {
+	                    rotation: -45,
+	                    style: {fontSize: '13px', fontFamily: 'Verdana, sans-serif'}
+	                }
+	            },
+	            yAxis: {
+	                min: 0,
+	                title: {text: 'Items'}
+	            },
+	            legend: {enabled: false},
+	            tooltip: {
+	                pointFormat: '<b>{point.y} 건</b>'
+	            },
+	            series: [{
+	                data: data,
+	                dataLabels: {
+	                    enabled: true,
+	                    rotation: -90,
+	                    color: '#FFFFFF',
+	                    align: 'right',
+	                    y: 10,
+	                    style: {fontSize: '13px', fontFamily: 'Verdana, sans-serif'}
+	                }
+	            }]
+	        });
+        }
+    </script> 
+<script type="text/javascript">
+        var data2 = [];
+
+        var arr = $('.chart-items2');
+
+        arr.sort(function(a, b)  {
+              return $(b).data('value') - $(a).data('value');
+        });
+        
+        arr.each(function(i) {
+            if(i < 20 ) {
+                data2.push([$(this).data('name'), $(this).data('value')]);
+            }
+        });
+        data2 = data2.reverse();
+
+        if(data2.length > 0) {
+	        Highcharts.chart('container2', {
+	            chart: {type: 'column'},
+	            title: {text: ''},
+	            xAxis: {
+	                type: 'category',
+	                labels: {
+	                    rotation: -45,
+	                    style: {fontSize: '13px', fontFamily: 'Verdana, sans-serif'}
+	                }
+	            },
+	            yAxis: {
+	                min: 0,
+	                title: {text: 'Items'}
+	            },
+	            legend: {enabled: false},
+	            tooltip: {
+	                pointFormat: '<b>{point.y} 건</b>'
+	            },
+	            series: [{
+	                data: data2,
+	                dataSorting: { enabled: false },
+	                dataLabels: {
+	                    enabled: true,
+	                    rotation: -90,
+	                    color: '#FFFFFF',
+	                    align: 'right',
+	                    y: 10,
+	                    style: {fontSize: '13px', fontFamily: 'Verdana, sans-serif'}
+	                }
+	            }]
+	        });
+        }
+    </script> 
+<script>
+     	const $metaView = $('.meta-view');
+     	if($metaView.length > 0) {
+     		const metaViewBoxs = $("tr[id^='meta-viewBox']");
+			metaViewBoxs.hide();
+			
+		    const metaViewBox = $("tr[id='meta-viewBox0']");
+		    metaViewBox.show();
+
+     		$metaView.each(function(index) {
+    			$(this).on('click', function(e) {
+    				const metaViewBoxs = $("tr[id^='meta-viewBox']");
+    				metaViewBoxs.hide();
+    				
+    			    const metaViewBox = $("tr[id='meta-viewBox" + index + "']");
+    			    metaViewBox.show();
+    			    
+    			    $('.meta-view').removeClass('active');
+    			    $($('.meta-view')[index]).addClass('active');
+    			    e.preventDefault();
+    			    
+    			    if(index == 0) {
+    			    	$('#data_info').show();
+    			    } else {
+    			    	$('#data_info').hide();
+    			    }
+    			});
+    		});
+     	}
+	</script>
+</body>
+
+<!-- Mirrored from aida.kisti.re.kr/data/8e0002e1-1eff-4336-9b41-0a7cc14e1fd1 by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:53 GMT -->
+</html>

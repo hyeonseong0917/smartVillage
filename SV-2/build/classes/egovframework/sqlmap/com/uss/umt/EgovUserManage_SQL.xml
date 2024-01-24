@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="User">
+
+    <typeAlias  alias="egovMap"      type = "egovframework.rte.psl.dataaccess.util.EgovMap"/>
+    <typeAlias  alias="userSearchVO" type = "egovframework.com.uss.umt.service.UserDefaultVO"/>
+    <typeAlias  alias="userVO"       type = "egovframework.com.uss.umt.service.UserManageVO"/>
+
+    <select id="userManageDAO.selectUserList_S" parameterClass="userSearchVO" resultClass="egovMap">
+SELECT 
+    uniqId, userTy, userId , userNm, emailAdres, moblphonNo, sttus, sbscrbDe
+FROM(
+    SELECT
+        ESNTL_ID               uniqId,
+        'USR03'               userTy,
+        EMPLYR_ID             userId,
+        USER_NM             userNm,
+        EMAIL_ADRES           emailAdres,
+        MBTLNUM           moblphonNo,
+        EMPLYR_STTUS_CODE     sttus,
+        SBSCRB_DE             sbscrbDe
+    FROM    COMTNEMPLYRINFO
+    ) A
+        WHERE 1=1
+        <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
+            sttus LIKE  #sbscrbSttus#
+        </isNotEqual>
+        <isEqual prepend="AND" property="searchCondition" compareValue="0">
+            userId LIKE #searchKeyword#
+        </isEqual>
+        <isEqual prepend="AND" property="searchCondition" compareValue="1">
+            userNm LIKE '%' #searchKeyword# '%'
+        </isEqual>
+        ORDER BY sbscrbDe DESC
+        LIMIT #recordCountPerPage# OFFSET #firstIndex#
+    </select>
+    
+    <select id="userManageDAO.selectUserListTotCnt_S" parameterClass="userSearchVO" resultClass="int">
+            SELECT COUNT(1) totcnt
+            FROM(
+            SELECT
+                ESNTL_ID               uniqId,
+                'USR03'               userTy,
+                EMPLYR_ID             userId,
+                USER_NM             userNm,
+                EMAIL_ADRES           emailAdres,
+                MBTLNUM           moblphonNo,
+                EMPLYR_STTUS_CODE     sttus,
+                SBSCRB_DE             sbscrbDe
+            FROM    COMTNEMPLYRINFO
+            ) A
+        WHERE 1=1
+            <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
+                sttus LIKE  #sbscrbSttus#
+            </isNotEqual>
+            <isEqual prepend="AND" property="searchCondition" compareValue="0">
+                userId LIKE #searchKeyword#
+            </isEqual>
+            <isEqual prepend="AND" property="searchCondition" compareValue="1">
+                userNm LIKE '%' #searchKeyword# '%'
+            </isEqual>
+    </select>
+    
+    <insert id="userManageDAO.insertUser_S">
+		<selectKey keyProperty="uniqId" resultClass="String" type="pre">
+			SELECT 
+				CONCAT('USRCNFRM_', lpad(cast(SUBSTRING(IFNULL(GREATEST(MAX(userId.ESNTL_ID), MAX(adminId.ESNTL_ID)), 'USRCNFRM_00000000000'), 10, 11) AS UNSIGNED)+1, 11,'0'))
+			FROM 
+				comtngnrlmber userId,
+				comtnemplyrinfo adminId
+		</selectKey>
+        <![CDATA[
+            INSERT INTO COMTNEMPLYRINFO 
+                (   ESNTL_ID             ,
+                    EMPLYR_ID           ,
+                    USER_NM           ,
+                    PASSWORD            ,
+                    MBTLNUM         ,
+                    EMAIL_ADRES         ,
+                    OFCPS_NM            ,
+                    EMPLYR_STTUS_CODE   ,
+                    SBSCRB_DE              )
+            VALUES (
+                    #uniqId#            ,
+                    #emplyrId#          ,
+                    #emplyrNm#          ,
+                    #password#          ,
+                    #moblphonNo#        ,
+                    #emailAdres#        ,
+                    #ofcpsNm#           ,
+                    #emplyrSttusCode#   ,
+                    sysdate()           )
+        ]]>
+    </insert>
+    
+    <delete id="userManageDAO.deleteUser_S">
+        <![CDATA[
+            DELETE FROM COMTNEMPLYRINFO 
+            WHERE ESNTL_ID=#delId#
+        ]]>
+    </delete>
+    
+    <select id="userManageDAO.selectUser_S" resultClass="userVO">
+        <![CDATA[
+            SELECT
+                ESNTL_ID           uniqId            ,
+                'USR03'           userTy,
+            EMPLYR_ID         emplyrId          ,
+            USER_NM         emplyrNm          ,
+            PASSWORD          password          ,
+            MBTLNUM       moblphonNo        ,
+            EMAIL_ADRES       emailAdres        ,
+            OFCPS_NM          ofcpsNm           ,
+            EMPLYR_STTUS_CODE emplyrSttusCode   , 
+            SBSCRB_DE         sbscrbDe
+        FROM COMTNEMPLYRINFO
+            WHERE ESNTL_ID=#uniqId#
+        ]]>
+    </select>
+    
+    <update id="userManageDAO.updateUser_S">
+        <![CDATA[
+            UPDATE COMTNEMPLYRINFO 
+            SET EMPLYR_ID           = #emplyrId#        , 
+                USER_NM           = #emplyrNm#        ,
+                MBTLNUM         = #moblphonNo#      ,
+                EMAIL_ADRES         = #emailAdres#      ,
+                OFCPS_NM            = #ofcpsNm#         ,
+                EMPLYR_STTUS_CODE   = #emplyrSttusCode#
+            WHERE ESNTL_ID = #uniqId#
+        ]]>
+    </update>
+    
+    <select id="userManageDAO.checkIdDplct_S" resultClass="int">
+        <![CDATA[
+            SELECT COUNT(1) usedCnt
+                FROM(
+                SELECT
+                    EMPLYR_ID             userId
+                FROM    COMTNEMPLYRINFO
+                UNION ALL
+                SELECT
+                    MBER_ID               userId
+                FROM    COMTNGNRLMBER
+                ) A
+            WHERE userId = #checkId#
+        ]]>
+    </select>
+    
+    <update id="userManageDAO.updatePassword_S">
+        <![CDATA[
+            UPDATE COMTNEMPLYRINFO 
+            SET 
+                   PASSWORD   =  #password#
+            WHERE  ESNTL_ID  = #uniqId#
+        ]]>
+    </update>
+    
+    <select id="userManageDAO.selectPassword_S" resultClass="userVO">
+        <![CDATA[
+            SELECT
+                    PASSWORD          password 
+            FROM    COMTNEMPLYRINFO
+            WHERE   ESNTL_ID=#uniqId#
+        ]]>
+    </select>
+    
+</sqlMap>

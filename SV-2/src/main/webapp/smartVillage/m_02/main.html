@@ -1,0 +1,488 @@
+<!doctype html>
+<html>
+
+<!-- Mirrored from aida.kisti.re.kr/auth/login by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:10 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- /Added by HTTrack -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="cache-Control" content="co-cache" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>스마트빌리지</title>
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+<link rel="stylesheet" href="../css/layout.css">
+<link rel="stylesheet" href="../css/mquery.css">
+<link rel="stylesheet" href="../css/slidebars.css">
+<link rel="stylesheet" href="../css/owl.carousel.min.css">
+<link rel="stylesheet" href="../css/owl.theme.default.min.css">
+<link rel="stylesheet" href="../css/animate.min.css">
+<link rel="stylesheet" href="../css/custom.css">
+
+<!-- 
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<link rel="stylesheet" href="/lib/ckeditor/ckeditor.css" />
+<link rel="stylesheet" href="/lib/ckeditor/ckeditor-content.css" />
+<link rel="stylesheet" href="/lib/ckeditor/ckeditor-custom.css" />
+<link rel="stylesheet" href="../lib/pretty-checkbox/pretty-checkbox.min.css" />
+<link rel="stylesheet" href="../lib/waitMe/waitMe.min.css" />
+<link rel="stylesheet" href="../lib/sweetalert/sweetalert2.min.css" /> 
+-->
+
+<style type="text/css">
+/* custom css 이동.. */
+    	.list_search_box .ls_search_bt {
+	border: none;
+}
+.write_bt_box .normal_bt {
+	border: none;
+}
+.view_img_box img {
+	max-height: 400px;
+}
+.d_view_dl dd {
+	font-size: inherit;
+}
+.d_view_dl dd.d_view_except {
+	color: inherit;
+	padding: 0;
+	background: none;
+}
+.data_view_box .w_r_add {
+	cursor: pointer;
+}
+.ds_imgs {
+	position: initial;
+	padding: 10px 20px 0 0;
+	float: left;
+}
+.ds_img .ds_img_field {
+	margin-left: 10px;
+	vertical-align: bottom;
+}
+.ds_img .ds_img_field .ds_img_remove_btn {
+	margin-top: 25px;
+	background: #e8881f;
+	color: white;
+	font-weight: bold;
+	font-size: 12px;
+	padding: 0 5px;
+	border-radius: 5px;
+}
+.ds_type_box ul li em, .ds_type_box ul li .ds_info_i02, .ds_type_box ul li .ds_info_i03 {
+	background-position-y: 50%;
+}
+.filedata_list_box {
+	background: none;
+}
+.btn {
+	border-radius: 0;
+}
+.form-control {
+	border-radius: 0;
+}
+.alert {
+	border-radius: 0;
+}
+.modal-content {
+	border-radius: 0;
+	border: none;
+}
+.panel {
+	margin-bottom: 0;
+	border-radius: 0;
+	border: none;
+}
+.panel .panel-heading {
+	border-top-left-radius: 0;
+	border-top-right-radius: 0;
+}
+.panel button.close {
+	display: block;
+	position: absolute;
+	top: 17px;
+	right: 22px;
+	width: 25px;
+	height: 25px;
+	background: url('../img/common/modal_btn.png') -100px -400px no-repeat;
+	z-index: 100;
+	text-indent: -9999em;
+	opacity: .5;
+}
+.panel button.close:focus, .panel button.close:hover {
+	opacity: 1;
+}
+.panel .panel-heading {
+	height: 60px;
+	background: #4d89e3 url('../img/background/login_pattern_bg.png') no-repeat 0 0;
+}
+.panel .panel-heading .panel-title {
+	line-height: 40px;
+	text-align: center;
+	font-weight: normal;
+	font-size: 18px;
+	color: #fff;
+}
+.ds_type_box ul li .ds_type_text {
+	background: url('../img/background/ds_type_icon01.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_sound {
+	background: url('../img/background/ds_type_icon02.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_image {
+	background: url('../img/background/ds_type_icon03.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_movie {
+	background: url('../img/background/ds_type_icon04.png') no-repeat 0px 0px;
+}
+.ds_type_box ul li .ds_type_model {
+	background: url('../img/background/ds_type_icon05.png') no-repeat 0px 0px;
+}
+.d_view_dl pre {
+	font-size: inherit;
+	line-height: inherit;
+	color: inherit;
+	background-color: inherit;
+	border: none;
+	font-family: inherit;
+}
+.top_tab_rbt.top_head_rbt {
+	right: 20px;
+	top: 25px;
+}
+.top_tab_rbt.top_head_rbt .normal_bt {
+	width: 100px;
+	height: 35px;
+	line-height: 35px;
+}
+.m_v_text:after {
+	background: none;
+}
+.bottom_home button {
+	text-align: center;
+	display: inline-block;
+	line-height: 50px;
+	background: #fff;
+	border: 1px solid #e0e0e0;
+	color: #333;
+	width: 440px;
+}
+
+</style>
+
+<style type="text/css">
+
+/* 말풍선 적절한 top 과 margin-left 로 위치조정 */
+
+.villageMap a p span.arrow_box {
+
+  display: none;
+  position: absolute;
+  width: 80px; height:80px;
+  left: -22px;
+  top: 53px;
+  border-radius: 100px;
+  color: #fff;
+  font-size: 14px;padding:8px 0 0; letter-spacing:-.05rem;
+}
+
+.villageMap a p span.arrow_box i{border-top:1px solid rgba(255,255,255,.4); font-size:22px; display: block; margin-top:-2px; }
+.villageMap a p span.arrow_box i:before{content: ' ';position: absolute;}
+.villageMap a p span.arrow_box._step_01{background:linear-gradient(180deg, rgba(13,157,255,1) 54%, rgba(0,103,172,1) 81%, rgba(41,131,245,1) 88%, rgba(0,255,255,1) 95%);}
+.villageMap a p span.arrow_box._step_01:after {  border-bottom-color: #0D9DFF;}
+.villageMap a p span.arrow_box._step_02{ background:linear-gradient(180deg, rgba(172,196,40,1) 54%, rgba(84,96,19,1) 81%, rgba(186,212,37,1) 88%, rgba(216,249,30,1) 95%);}
+.villageMap a p span.arrow_box._step_02:after {  border-bottom-color: #ACC428;}
+
+.villageMap a p span.arrow_box._step_03{ background:linear-gradient(180deg, rgba(204,153,0,1) 54%, rgba(106,80,0,1) 81%, rgba(236,177,0,1) 88%, rgba(254,231,24,1) 95%);}
+.villageMap a p span.arrow_box._step_03:after {  border-bottom-color: #CC9900;}
+
+.villageMap a p span.arrow_box._step_04{ background:linear-gradient(180deg, rgba(221,51,72,1) 54%, rgba(122,20,33,1) 81%, rgba(224,71,90,1) 88%, rgba(255,43,90,1) 95%);}
+.villageMap a p span.arrow_box._step_04:after {  border-bottom-color: #DD3348;}
+
+
+
+.villageMap a p span.arrow_box:after {
+
+  position: absolute;
+  bottom: 97%;
+  left:16px ;top:-40px;
+  width: 0;
+  height: 0;
+  border: solid transparent;
+  border-color: rgba(51, 51, 51, 0);
+  border-width: 24px;
+  pointer-events: none;
+  content: ' ';
+
+}
+.villageMap a p:hover span {
+  display: block;
+}
+
+ 
+
+ 
+
+</style>
+
+<!--[if lt IE 9]>
+    	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+<div id="sb-site">
+  <div class="weather_wrap">
+    <div class="weather_inner">
+     <ul>
+     	<li><i class="weather _snow"></i></li><!--날씨-->
+        <li>부산광역시<span>24</span><i class="temper "></i></li><!--기온-->
+        <li>미세먼지<i class="dust _step03"></i></li><!--미세먼지-->
+        <li>초미세먼지<i class="dust _step04"></i></li><!--초미세먼지-->
+    </ul>
+    </div>
+  </div>
+  
+  
+  
+  
+  
+  <div class="header_wrap">
+    <div class="header_inner">
+      <h1><a href="../index.html">스마트빌리지</a></h1>
+      
+      <!--<div class="gnb_bg">
+        <div class="bg_wrap"></div>
+      </div>-->
+      <div class="gnb_back_bg"  style="display:none;">nav bg</div>
+      <div class="top_right_box">
+        <div class="tablet_nav sb-toggle-right"> <a href="#" class="tablet_nav_bt" id="mnav_bt">
+        <span class="line"></span>
+        <span class="line"></span>
+        <span class="line"></span> </a> </div>
+      </div>
+      <!-- top_right_box : e  --> 
+    </div>
+  </div>
+  <!-- header_wrap: e -->
+  <div class="title_box">
+    <div class="title_box_inner">
+      <h3>Environment</h3>
+      <ul class="m_02">
+      	<i></i>
+        <li class="txt1">빌리지 내 <span class="_txt_blue">대기환경</span><span class="_txt_green">정보</span> 사용량</li>
+        <li>청량한 <span class="_txt_blue">공기</span>, <span class="_txt_green">자연</span>이 함께하는 풍요로운 삶</li>
+      </ul>
+    </div>
+  </div>
+  
+  <div class="topM_box">
+    <div class="topM_box_inner">
+      <p class="_6 _m02 "><a href="#" class="active "><i ></i>미세먼지</a></p>
+      <p class="_6 _m02 "><a href="#" class=" " ><i ></i>초미세먼지</a></p>
+      <p class="_6 _m02"><a href="#" class=" "><i ></i>온도</a></p>
+      <p class="_6 _m02"><a href="#" class=" "><i ></i>습도</a></p>
+      <p class="_6 _m02"><a href="#" class=" "><i ></i>조도</a></p>
+      <p class="_6 _m02"><a href="#" class=" "><i ></i>소음</a></p>
+    </div>
+  </div>
+  
+
+  	<div class="sub_container">
+    
+  	 <div class="villageMap">
+     	<div class="con_tit_box">
+            <h4>미세먼지</h4>
+       </div>
+       <!--컨텐츠 타이틀 : e  -->
+      
+       	<a class="" href=""><p id="step_01" class="_step_01" style="left:15%; transform:translateY(0%)"><span class="arrow_box _step_01">주출입구<i>21</i></span>21</p></a>
+        <a class="" href=""><p id="step_02" class="_step_04" style="left:70%; transform:translateY(-100%)"><span class="arrow_box _step_04">도보출입구<i>162</i></span>162</p></a>
+        <a class="" href=""><p id="step_03" class="_step_03" style="left:65%; transform:translateY(-200%)"><span class="arrow_box _step_03">1단지출입구<i>83</i></span>83</p></a>
+        <a class="" href=""><p id="step_04" class="_step_03" style="left:68%; transform:translateY(-300%)"><span class="arrow_box _step_03">스마트플라자<i>21</i></span>21</p></a>
+        <a class="" href=""><p id="step_05" class="_step_02" style="left:35%; transform:translateY(-400%)"><span class="arrow_box _step_02">공용공간<i>38</i></span>38</p></a>
+        <a class="" href=""><p id="step_06" class="_step_01" style="left:40%; transform:translateY(-500%)"><span class="arrow_box _step_01">코리도1<i>25</i></span>25</p></a>
+        <a class="" href=""><p id="step_07" class="_step_01" style="left:49%; transform:translateY(-600%)"><span class="arrow_box _step_01">코리도2<i>25</i></span>25</p></a>
+        <a class="" href=""><p id="step_08" class="_step_01" style="left:62%; transform:translateY(-700%)"><span class="arrow_box _step_01">코리도3<i>25</i></span>25</p></a>    
+       
+       
+      <div class="data_step_box ">
+      <h4>미세먼지</h4>
+      <ul class="_step">
+      	<li class="_01"><i></i>좋음<span>(0~30)</span></li>
+        <li class="_02"><i></i>보통<span>(31~80)</span></li>
+        <li class="_03"><i></i>나쁨<span>(81~150)</span></li>
+        <li class="_04"><i></i>위험<span>(150~)</span></li>
+      </ul>
+      </div>
+     </div>
+     
+
+
+</div>  
+  <!-- sub_container : e-->
+   <div class="footer_wrap">
+    <div class="footer_inner">
+      <p><span>우) 34350 대전광역시 대덕구 신탄진로 200</span><span>COPYRIGHT © K-water ALL RIGHTS RESERVED</span></p>
+      <div class="footer_link_box"> <a href="javascript:void(0)" class="f_l_text">주요 사이트</a>
+        <div class="f_l_drop">
+          <ul>
+            <li><a href="https://busan-smartvillage.com/" target="_blank">부산 에코델타 스마트빌리지</a></li>
+            <li><a href="#" target="_blnak">관련사이트</a></li>
+            <li><a href="#" target="_blnak">관련사이트</a></li>
+            <li><a href="#" target="_blnak">관련사이트</a></li>
+            <li><a href="#" target="_blnak">관련사이트</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer_term"> <a href="#">개인정보처리방침</a> </div>
+    </div>
+  </div>
+</div>
+<!-- sb-site --> 
+
+<!-- 모바일 화면에서 오른쪽 메뉴 -->
+<div class="sb-slidebar sb-right">
+  <div class="right_nav_box">
+    <a href="#"><div class="mobile_main">main으로 이동</div></a>
+    <div id="" class="left_nav_inner">
+      <h3><a href="../m_01/main.html" class="m01"><em>Water & Energy</em></a></h3>
+      <h3><a href="main.html" class="m02"><em>Environment</em></a></h3>
+      <h3><a href="../m_03/main.html" class="m03"><em>Car Care</em></a></h3>
+      <h3><a href="../m_04/main.html" class="m04"><em>CCTV</em></a></h3>      
+      <h3><a href="../m_05/list.html" class="m05"><em>Community</em></a></h3>
+      <h3><a href="../m_06/list.html" class="m06"><em>notice</em></a></h3>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript" src="../js/jquery-ui.js"></script> 
+<script type="text/javascript" src="../js/vue.js"></script> 
+<script type="text/javascript" src="../js/jquery.scroll.pack.js"></script> 
+<script type="text/javascript" src="../js/common.js"></script> 
+<script type="text/javascript" src="../js/utilsed84.js?v=20200729"></script> 
+<script type="text/javascript" src="../js/slidebars.js"></script> 
+<script type="text/javascript" src="../js/owl.carousel.js"></script> 
+<!--
+<script type="text/javascript" src="../js/bootstrap.min.js"></script> 
+<script type="text/javascript" src="../lib/sweetalert/sweetalert2.min.js"></script> 
+<script type="text/javascript" src="../lib/waitMe/waitMe.min.js"></script> -->
+
+<script type="text/javascript">
+BASE = "";
+login = "";
+
+$(function() {
+	$.slidebars();
+	$(".sub_search_bt").click(function(){
+		$(".mobile_s_inner").toggleClass("search_active");
+	});
+	$(".m_toggle_bt").click(function(){
+		$(".m_toggle_box").toggleClass("tm_open_type");
+	});
+	// 오른쪽 퀵 메뉴
+	var lnb = $('.right_nav_box').offset().top;
+ 	$(window).scroll(function(){
+		var window = $(this).scrollTop();
+		if(lnb <= window) {
+			$(".right_nav_box").addClass("r_q_fixed");
+		} else {
+			$(".right_nav_box").removeClass("r_q_fixed");
+		}
+ 	})
+
+});
+</script>
+<script type="text/javascript">
+window.onload = () => {
+	position();
+}
+
+window.onresize = () => {
+	position();
+}
+
+function position() {	
+	  const vw100 = $('.villageMap').width();
+	  const vh100 = $('.villageMap').height();
+
+	  /* background image size (source) */
+
+	  const bgw = 1480
+	  const bgh = 600
+
+	  /* projected background image size and position */
+
+	  const bgscale = Math.max(vh100 / bgh, vw100 / bgw)
+
+	  const projectedWidth  = bgw * bgscale | 0
+	  const projectedHeight = bgh * bgscale | 0
+
+	  const leftOverflow = (projectedWidth  - vw100) / 2 | 0
+	  const topOverflow  = (projectedHeight - vh100) / 2 | 0
+
+	  console.log(bgscale.toFixed(2), projectedWidth, projectedHeight, leftOverflow, topOverflow)
+	  
+	  const w = projectedWidth - leftOverflow;
+	  const h = projectedHeight - topOverflow;
+	  var t = 0;
+	  var l = 0;
+	  	
+	  	t = Math.round((h* 0.19 * bgscale.toFixed(2)));
+	  	$('#step_01').css({ top : t + "px"});
+	  	
+	  	t = Math.round((h* 0.43 * bgscale.toFixed(2)));
+	  	$('#step_02').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.15 * bgscale.toFixed(2)));
+	  	$('#step_03').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.18 * bgscale.toFixed(2)));
+	  	$('#step_04').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.09 * bgscale.toFixed(2)));
+	  	$('#step_05').css({ top : t + "px"});
+	  	
+	  	console.log(t);
+	   	t = Math.round((h* 0.13 * bgscale.toFixed(2)));
+	  	$('#step_06').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.23 * bgscale.toFixed(2)));
+	  	$('#step_07').css({ top : t + "px"});	  	
+
+	   	t = Math.round((h* 0.37));
+	  	$('#step_08').css({ top : t + "px"});
+
+}
+
+function aa() {
+
+	  const vw100 = window.innerWidth
+	  const vh100 = window.innerHeight
+
+	  /* background image size (source) */
+
+	  const bgw = 2368
+	  const bgh = 1473
+
+	  /* projected background image size and position */
+
+	  const bgscale = Math.max(vh100 / bgh, vw100 / bgw)
+
+	  const projectedWidth  = bgw * bgscale | 0
+	  const projectedHeight = bgh * bgscale | 0
+
+	  const leftOverflow = (projectedWidth  - vw100) / 2 | 0
+	  const topOverflow  = (projectedHeight - vh100) / 2 | 0
+
+	  //console.log(bgscale.toFixed(2), projectedWidth, projectedHeight, leftOverflow, topOverflow)
+
+	}
+
+
+</script>
+</body>
+
+<!-- Mirrored from aida.kisti.re.kr/auth/login by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:11 GMT -->
+</html>

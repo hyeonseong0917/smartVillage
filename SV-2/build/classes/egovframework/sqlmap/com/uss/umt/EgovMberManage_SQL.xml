@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Mber">
+
+    <typeAlias  alias="egovMap"      type = "egovframework.rte.psl.dataaccess.util.EgovMap"/>
+    <typeAlias  alias="userSearchVO" type = "egovframework.com.uss.umt.service.UserDefaultVO"/>
+    <typeAlias  alias="mberVO"       type = "egovframework.com.uss.umt.service.MberManageVO"/>
+    
+ <select id="mberManageDAO.selectMberList" parameterClass="userSearchVO" resultClass="egovMap">
+SELECT 
+    uniqId, userTy, userId , userNm, emailAdres, moblphonNo, sttus, sbscrbDe
+FROM(
+    SELECT 
+        ESNTL_ID               uniqId,
+        'USR01'               userTy,
+        MBER_ID               userId,
+        MBER_NM               userNm,
+        MBER_EMAIL_ADRES      emailAdres,
+        MBTLNUM           moblphonNo,
+        MBER_STTUS            sttus,
+        SBSCRB_DE             sbscrbDe
+    FROM    COMTNGNRLMBER
+    ) A
+        WHERE 1=1
+        <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
+            sttus LIKE  #sbscrbSttus#
+        </isNotEqual>
+        <isEqual prepend="AND" property="searchCondition" compareValue="0">
+            userId LIKE #searchKeyword#
+        </isEqual>
+        <isEqual prepend="AND" property="searchCondition" compareValue="1">
+            userNm LIKE '%' #searchKeyword# '%'
+        </isEqual>
+        ORDER BY sbscrbDe DESC
+        LIMIT #recordCountPerPage# OFFSET #firstIndex#
+    </select>
+    
+    
+        <select id="mberManageDAO.selectMberListTotCnt" parameterClass="userSearchVO" resultClass="int">
+            SELECT COUNT(1) totcnt
+            FROM(
+            SELECT 
+                ESNTL_ID               uniqId,
+                'USR01'               userTy,
+                MBER_ID               userId,
+                MBER_NM               userNm,
+                MBER_EMAIL_ADRES      emailAdres,
+                MBTLNUM           moblphonNo,
+                MBER_STTUS            sttus,
+                SBSCRB_DE             sbscrbDe
+            FROM    COMTNGNRLMBER
+            ) A
+        WHERE 1=1
+            <isNotEqual prepend="AND" property="sbscrbSttus" compareValue="0">
+                sttus LIKE  #sbscrbSttus#
+            </isNotEqual>
+            <isEqual prepend="AND" property="searchCondition" compareValue="0">
+                userId LIKE #searchKeyword#
+            </isEqual>
+            <isEqual prepend="AND" property="searchCondition" compareValue="1">
+                userNm LIKE '%' #searchKeyword# '%'
+            </isEqual>
+    </select>
+    
+    <insert id="mberManageDAO.insertMber_S">
+        <selectKey keyProperty="uniqId" resultClass="String" type="pre">
+			SELECT 
+				CONCAT('USRCNFRM_', lpad(cast(SUBSTRING(IFNULL(GREATEST(MAX(userId.ESNTL_ID), MAX(adminId.ESNTL_ID)), 'USRCNFRM_00000000000'), 10, 11) AS UNSIGNED)+1, 11,'0'))
+			FROM 
+				comtngnrlmber userId,
+				comtnemplyrinfo adminId
+		</selectKey>
+        <![CDATA[
+            INSERT INTO COMTNGNRLMBER 
+                (   
+                    ESNTL_ID          ,
+                    MBER_ID          ,
+                    MBER_NM          ,
+                    PASSWORD         ,
+                    ADRES            ,
+                    MBER_STTUS       ,
+                    MBTLNUM      ,
+                    MBER_EMAIL_ADRES ,
+                    SBSCRB_DE        )
+              VALUES(
+                    #uniqId#,
+                    #mberId#,
+                    #mberNm#,
+                    #password#,
+                    #adres#,
+                    #mberSttus#,
+                    #moblphonNo#,
+                    #mberEmailAdres#,
+                    sysdate()  )              
+        ]]>
+    </insert>
+    
+    <delete id="mberManageDAO.deleteMber_S">
+        <![CDATA[
+            DELETE FROM COMTNGNRLMBER 
+            WHERE ESNTL_ID=#delId#
+        ]]>
+    </delete>
+    
+    <select id="mberManageDAO.selectMber_S" resultClass="mberVO">
+        <![CDATA[
+            SELECT
+                ESNTL_ID          uniqId,
+                'USR01'          userTy,
+                MBER_ID          mberId,
+                MBER_NM          mberNm,
+                PASSWORD         password,
+                ADRES            adres,
+                MBER_STTUS       mberSttus,
+                MBTLNUM      moblphonNo,
+                MBER_EMAIL_ADRES mberEmailAdres,
+                SBSCRB_DE        sbscrbDe
+            FROM COMTNGNRLMBER
+            WHERE ESNTL_ID=#uniqId#
+        ]]>
+    </select>
+    
+    <update id="mberManageDAO.updateMber_S">
+        <![CDATA[
+            UPDATE COMTNGNRLMBER 
+            SET MBER_ID          = #mberId#,
+                MBER_NM          = #mberNm#,
+                ADRES            = #adres#,
+                MBER_STTUS       = #mberSttus#,
+                MBTLNUM      = #moblphonNo#,
+                MBER_EMAIL_ADRES = #mberEmailAdres#
+            WHERE ESNTL_ID=#uniqId#
+        ]]>
+    </update>
+    
+    <update id="mberManageDAO.updatePassword_S">
+        <![CDATA[
+            UPDATE COMTNGNRLMBER 
+            SET 
+                   PASSWORD   =  #password#
+            WHERE  ESNTL_ID  = #uniqId#
+        ]]>
+    </update>
+    
+    <select id="mberManageDAO.selectPassword_S" resultClass="mberVO">
+        <![CDATA[
+            SELECT
+                    PASSWORD          password 
+            FROM    COMTNGNRLMBER
+            WHERE   ESNTL_ID=#uniqId#
+        ]]>
+    </select>
+    
+</sqlMap>

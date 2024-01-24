@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+<!-- 
+	수정일                 수정자                          수정내용
+  =========     =======    =================================================
+  2011.8.26   	서준식     	 	SSO 로그인을 위한 쿼리 추가
+  2011.09.27    서준식              컬럼 변경 SUB_DN 을  CRTFC_DN_VALUE 로 변경
+  2011.09.28    서준식              컬럼 변경 entrprsmber_id 을  ENTRPRS_MBER_ID 로 변경
+-->
+<sqlMap namespace="LoginUsr">
+
+	<typeAlias  alias="egovMap" type="egovframework.rte.psl.dataaccess.util.EgovMap"/>
+	<typeAlias  alias="loginVO" type="egovframework.com.cmm.LoginVO"/>
+
+	<!-- 로그인 처리를 위한 resultMap -->
+	<resultMap id="login" class="egovframework.com.cmm.LoginVO">
+		<result property="id" column="id" columnIndex="1"/>
+		<result property="name" column="name" columnIndex="2"/>
+		<result property="email" column="email" columnIndex="4"/>
+		<result property="password" column="password" columnIndex="5"/>
+		<result property="userSe" column="userSe" columnIndex="6"/>
+		<result property="address" column="address" columnIndex="7"/>
+		<result property="uniqId" column="uniqId" columnIndex="8"/>		
+	</resultMap>
+	
+	<!-- 아이디 찾기를 위한 resultMap -->
+	<resultMap id="id" class="egovframework.com.cmm.LoginVO">
+		<result property="id" column="id" columnIndex="1"/>
+	</resultMap>
+	
+	<!-- 비밀번호 처리를 위한 resultMap -->
+	<resultMap id="password" class="egovframework.com.cmm.LoginVO">
+		<result property="password" column="password" columnIndex="1"/>
+	</resultMap>
+	
+	<!-- 일반 로그인 -->
+	<select id="loginDAO.actionLogin" resultMap="login">
+		<!-- 일반회원 -->
+		<isEqual property="userSe" compareValue="GNR">
+			<![CDATA[
+			SELECT mber_id AS id
+			     , mber_nm AS name
+			     , password AS password
+			     , mber_email_adres AS email
+			     , 'GNR' AS userSe
+			     , adres AS address
+			     , esntl_id AS uniqId
+			  FROM COMTNGNRLMBER
+			 WHERE mber_id = #id#
+			   AND password = #password#
+			   AND mber_sttus = 'P'
+			]]>
+		</isEqual>
+		<!-- 업무사용자 -->
+		<isEqual property="userSe" compareValue="USR">
+			<![CDATA[
+			SELECT emplyr_id AS id
+			     , user_nm AS name
+			     , password AS password
+			     , email_adres AS email
+			     , 'USR' AS userSe
+			     , '-' AS address
+			     , esntl_id AS uniqId
+			  FROM COMTNEMPLYRINFO
+			 WHERE emplyr_id = #id#
+			   AND password = #password#
+			   AND emplyr_sttus_code = 'P'
+			]]>
+		</isEqual>
+	</select>
+	
+	<!-- 변경된 비밀번호를 저장 -->
+	<update id="loginDAO.updatePassword">
+		<!-- 일반회원 -->
+		<isEqual property="userSe" compareValue="GNR">
+			<![CDATA[
+			UPDATE COMTNGNRLMBER
+			   SET password = #password#
+			 WHERE mber_id = #id#
+			]]>
+		</isEqual>
+		<!-- 업무사용자 -->
+		<isEqual property="userSe" compareValue="USR">
+			<![CDATA[
+			UPDATE COMTNEMPLYRINFO
+			   SET password = #password#
+			 WHERE emplyr_id = #id#
+			]]>
+		</isEqual>
+	</update>
+</sqlMap>

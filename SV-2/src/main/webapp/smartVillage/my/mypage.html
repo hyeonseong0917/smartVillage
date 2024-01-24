@@ -1,0 +1,548 @@
+<!doctype html>
+<html>
+
+<!-- Mirrored from aida.kisti.re.kr/about/guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:09 GMT -->
+<!-- Added by HTTrack --><meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<head>
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta http-equiv="cache-Control" content="co-cache" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    
+    <title>KISTI 기계학습 데이터 공유·활용 서비스</title>
+    <link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+    
+    <link rel="stylesheet" href="../css/bootstrap.mina6f1.css?v=20191217">
+    <link rel="stylesheet" href="../css/layout231e.css?v=20220916">
+    <link rel="stylesheet" href="../css/mquery6b9f.css?v=20211104">
+    <link rel="stylesheet" href="../css/slidebars.css">
+    
+    <link rel="stylesheet" href="../lib/pretty-checkbox/pretty-checkbox.min.css" />
+    <link rel="stylesheet" href="../lib/waitMe/waitMe.min.css" />
+    
+    <link rel="stylesheet" href="../css/owl.carousel.min.css">
+    <link rel="stylesheet" href="../css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="../css/animate.min.css">
+    <link rel="stylesheet" href="../css/custom6b9f.css?v=20211104">
+    
+    <!-- <link rel="stylesheet" href="/lib/ckeditor/ckeditor.css" />
+    <link rel="stylesheet" href="/lib/ckeditor/ckeditor-content.css" />
+    <link rel="stylesheet" href="/lib/ckeditor/ckeditor-custom.css" /> -->
+    <link rel="stylesheet" href="../lib/sweetalert/sweetalert2.min.css" />
+    
+    <style type="text/css">
+    	/* custom css 이동.. */
+    	.list_search_box .ls_search_bt { border: none; }
+		.write_bt_box .normal_bt { border: none; }
+		.view_img_box img { max-height: 400px; }
+		.d_view_dl dd { font-size: inherit; }
+		.d_view_dl dd.d_view_except { color: inherit; padding: 0; background: none; }
+		.data_view_box .w_r_add { cursor: pointer; }
+		.ds_imgs { position: initial; padding: 10px 20px 0 0; float: left; }
+		.ds_img .ds_img_field { margin-left: 10px; vertical-align: bottom; }
+		.ds_img .ds_img_field .ds_img_remove_btn { margin-top: 25px; background: #e8881f; color: white; font-weight: bold; font-size: 12px; padding: 0 5px; border-radius: 5px; }
+		.ds_type_box ul li em, .ds_type_box ul li .ds_info_i02, .ds_type_box ul li .ds_info_i03 { background-position-y: 50%; }
+		.filedata_list_box { background: none; }
+		
+		.btn { border-radius: 0; }
+		.form-control { border-radius: 0; }
+    	.alert { border-radius: 0; }
+    
+		.modal-content { border-radius: 0; border: none; }
+		.panel { margin-bottom: 0; border-radius: 0; border: none; }
+		.panel .panel-heading { border-top-left-radius: 0; border-top-right-radius: 0; }
+		.panel button.close {
+            display: block;
+            position: absolute;
+            top: 17px;
+            right: 22px;
+            width: 25px;
+            height: 25px;
+            background: url('../img/common/modal_btn.png') -100px -400px no-repeat;
+            z-index: 100;
+			text-indent: -9999em;
+			opacity: .5;
+		}
+		.panel button.close:focus, .panel button.close:hover {
+            opacity: 1;
+		}
+		.panel .panel-heading {
+    		height: 60px;
+			background: #4d89e3 url('../img/background/login_pattern_bg.png') no-repeat 0 0;
+		}
+		.panel .panel-heading .panel-title {
+            line-height: 40px;
+            text-align: center;
+            font-weight: normal;
+            font-size: 18px;
+            color: #fff;
+        }
+        
+		.ds_type_box ul li .ds_type_text  { background: url('../img/background/ds_type_icon01.png') no-repeat 0px 2px;  }
+		.ds_type_box ul li .ds_type_sound { background: url('../img/background/ds_type_icon02.png') no-repeat 0px 2px;  }
+		.ds_type_box ul li .ds_type_image  { background: url('../img/background/ds_type_icon03.png') no-repeat 0px 2px;  }
+		.ds_type_box ul li .ds_type_movie  { background: url('../img/background/ds_type_icon04.png') no-repeat 0px 2px;  }
+		.ds_type_box ul li .ds_type_model  { background: url('../img/background/ds_type_icon05.png') no-repeat 0px 2px;  }
+		.ds_type_box ul li .ds_type_etc    {background: url('../img/background/ds_type_iconETC.png') no-repeat 0px 2px; } 
+		
+		
+    	.d_view_dl pre {
+    		font-size: inherit;
+    		line-height: inherit;
+    		color: inherit;
+		    background-color: inherit;
+    		border: none;
+    		font-family: inherit;
+    	}
+    	
+    	.top_tab_rbt.top_head_rbt {
+    		right: 20px;
+		    top: 25px;
+    	}
+    	.top_tab_rbt.top_head_rbt .normal_bt {
+    		width: 100px;
+            height: 35px;
+            line-height: 35px;
+    	}
+    	
+    	.m_v_text:after { background: none; }
+    	
+    	.bottom_home button {
+        	text-align: center;
+        	display: inline-block;
+        	line-height: 50px;
+        	background: #fff;
+        	border: 1px solid #e0e0e0;
+        	color: #333;
+        	width: 440px;
+        }
+        
+        .header_inner h1 a {
+            width: 393px;
+        }
+	</style>
+    
+    <!--[if lt IE 9]>
+    	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    	<style type="text/css">
+		h4 {
+            font-weight: bold;
+        }
+		.s_info_wrap {
+            width: 1100px;
+            margin: 0 auto;
+            padding: 0 0 40px 0;
+            min-height: 400px;
+        }
+        
+        .g_v_info {
+            margin-bottom: 30px;
+        }
+        .g_v_info h4 {
+            color: #000;
+            font-size: 18px;
+            padding: 0 0 0 22px;
+            margin-bottom: 12px;
+            background: url(../img/background/g_v_info_bullet.png) no-repeat 0 2px;
+        }
+        .s_info_inner p {
+            text-align: justify;
+            font-size: 16px;
+            line-height: 25px;
+        }
+        .i_data_box {
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .i_data_box .info_dataset_icon01 {
+            background: url(../img/background/info_dataset_icon01.png) no-repeat 0 0;
+        }
+        .i_data_box .info_dataset_icon02 {
+            background: url(../img/background/info_dataset_icon02.png) no-repeat 0 0;
+        }
+        .i_data_box .info_dataset_icon05 {
+            background: url(../img/background/info_dataset_icon05.png) no-repeat 0 0;
+        }
+        .i_data_box span {
+            display: block;
+            margin: 0 auto 10px auto;
+            width: 66px;
+            height: 66px;
+            border-radius: 33px;
+            text-indent: -9999px;
+            overflow: hidden;
+        }
+        .i_data_box dl dt {
+            text-align: center;
+            font-size: 16px;
+            color: #222;
+            font-weight: normal;
+            margin-bottom: 15px;
+        }
+        .i_data_box dl dd {
+            text-align: left;
+            font-size: 14px;
+            text-align: center;
+        }
+        .g_v_info h4 em {
+            font-size: 16px;
+            color: #4b79a0;
+            display: inline-block;
+        }
+        
+        .api_row_box { border:1px solid #ddd; border-radius: 3px; overflow: hidden;  margin-bottom: 10px;}
+        
+        .api_get_box { overflow: hidden;  padding:5px; position: relative; }
+        .api_get_box:after  { content: ''; display: block; clear: both; position: absolute; right:15px; top: 50%; width: 12px; height: 7px; background: url(../img/background/api_down_arr.png) no-repeat 0 0;  margin-top: -3px;   }
+        .api_get_box span{  float: left;  font-size: 14px;
+            min-width: 80px;
+            padding: 6px 15px;
+            text-align: center;
+            border-radius: 3px;
+            color: #fff;  background: #448eee; }
+        
+        .api_get_box em { display: block; margin: 0 0 0 100px; line-height: 22px; padding: 3px 0 0 0;}
+        .api_get_box em strong{  color: #000; margin-right: 10px; display: inline-block; }
+        
+        
+        .api_inner_con { border-top:1px solid #ddd; padding: 10px; background: #f9f9f9; display: none; }
+        .api_row  { border-radius: 3px;  overflow: hidden;  background: #fff;  box-shadow: 0 2px 8px rgba(72,72,72,0.2); padding-bottom: 5px;}
+        .api_row h5 {  border-bottom:1px solid #eee; padding: 10px 0 0px 10px; margin-bottom: 15px; font-size: 14px; color: #222;position: relative; }
+        .api_row h5 span { font-size: 15px; line-height: 24px;  padding: 0 0 10px 0;  display: inline-block;color: #385dba; }
+        .api_row h5 span:after { content: ''; display: block;clear: both; background:#448eee;  height: 2px; width: 22px; position: absolute; left:10px; bottom:-1px; line-height: 24px;  padding: 0;  display: inline-block}
+        
+        .api_tbl { width: 100%;  }
+        .api_tbl thead th {font-size: 13px; font-weight: normal; color: #000;  border-bottom: 1px solid #ddd;   padding: 0 0 10px 10px; }
+        .api_tbl tbody th { font-weight: normal; font-size: 13px;  padding: 7px 0 7px 10px; }
+        .api_tbl tbody td { font-weight: normal; font-size: 13px;  padding: 7px 0 7px 10px; }
+        
+        .api_on .api_get_box:after  {  background: url(../img/background/api_up_arr.png) no-repeat 0 0;  }
+        .api_on .api_inner_con { display: block; }
+        .api_get_box {
+            cursor: pointer;
+        }
+		
+		.vb_inner.my_page{width: 1440px; min-height: 138px; text-align: center; padding-bottom:50px}
+		.vb_inner.my_page h3{font-family: NanumSquare;font-weight: 900; font-size:38px; }
+		.vb_inner.my_page span{display:inline-block; position:relative;margin:0 30px; }
+		.vb_inner.my_page span.myIMG{display:inline-block; background:url(../img/background/icon_mypage.png) left bottom no-repeat; width:66px; height:63px; top:20px;  }
+		.vb_inner.my_page span.editINFO{ background:url(../img/background/mypage_icon_sm.png) left top no-repeat; padding-left:35px;color:#0D79FE;font-family: NanumSquare;font-weight: 600; font-size:15px;margin-right:20px; }
+		.top_tab_inner ul.my_menu li { width:25%;margin-right:0px;  background:#2983F5;}
+		.top_tab_inner ul.my_menu li a{ color:#fff;font-family: NanumSquare;font-weight: 600; font-size:20px; padding:12px 15px 15px 75px;}
+		.top_tab_inner ul.my_menu li a:before{content:'MY'; display:block;font-weight: 600; font-size:15px; color: rgba(255,255,255,.5); padding-bottom:5px; }
+		.top_tab_inner ul.my_menu li a span{ display:inline-block; position:relative; font-size:15px; padding:5px 20px ; background:#fff; border-radius:50px; text-align:center; color:#2883F4; float:right; top:-10px}
+		.top_tab_inner ul.my_menu li:nth-child(even){ background:#62A5F7} 
+		.top_tab_inner ul.my_menu li:nth-child(1){ background:url(../img/background/icon_mypage_m01.png) 20px 20px no-repeat #2983F5}
+		.top_tab_inner ul.my_menu li:nth-child(2){ background:url(../img/background/icon_mypage_m02.png) 20px 20px no-repeat #62A5F7}
+		.top_tab_inner ul.my_menu li:nth-child(3){ background:url(../img/background/icon_mypage_m03.png) 20px 20px no-repeat #2983F5}
+		.top_tab_inner ul.my_menu li:nth-child(4){ background:url(../img/background/icon_mypage_m04.png) 20px 20px no-repeat #62A5F7}
+
+		.top_tab_inner ul.my_menu li:first-child{ border-radius:15px 0 0 0}
+		.top_tab_inner ul.my_menu li:last-child{ border-radius:0 15px 0 0 }
+		
+		._Mydata h4{ background:url(../img/background/icon_mypage_tit.png) 20px 20px no-repeat;color:#333;font-family: NanumSquare;font-weight: 600; font-size:17px; padding:20px 20px 20px 55px; border-bottom:1px solid #E0E0E0;}
+		
+		@media (max-width: 1439px){
+			.vb_inner.my_page {    width: 1280px;}
+		}
+		@media (max-width: 1280px){
+			.vb_inner.my_page {
+				width: auto;
+				padding: 17px 20px 0 20px;}
+				
+        }
+		@media all and (max-width :1024px)  {
+			.vb_inner.my_page {min-height: auto; padding: 17px 20px 15px 20px;}
+		}
+		@media all and (max-width :1100px)  {
+			.top_tab_inner ul.my_menu li:nth-child(1){ background:none #2983F5}
+			.top_tab_inner ul.my_menu li:nth-child(2){ background:none #62A5F7}
+			.top_tab_inner ul.my_menu li:nth-child(3){ background:none #2983F5}
+			.top_tab_inner ul.my_menu li:nth-child(4){ background:none #62A5F7}
+			
+			.top_tab_inner ul.my_menu li a{  padding:12px 15px;}
+		}
+		@media all and (max-width :900px)  {
+			.top_tab_inner ul.my_menu li a{ font-size:17px;padding:12px ;}
+			
+		}
+		@media all and (max-width :768px)  {
+			.top_tab_inner ul.my_menu li a{ font-size:15px;padding:10px ;}
+			
+		}
+		@media all and (max-width :720px)  {
+			
+			.top_tab_inner ul.my_menu li a:before{content:'MY'; display:inline-block;font-weight: 600; font-size:15px; color: rgba(255,255,255,.5); padding-bottom:5px; }
+			.top_tab_inner ul.my_menu li a{ font-size:15px;padding:10px ; text-align:center}
+			.top_tab_inner ul.my_menu li a span{ display:block; position:relative; font-size:13px; padding:5px 20px ; background:#fff; border-radius:50px; text-align:center; color:#2883F4;top:4px; float:none}
+			
+		}
+		@media all and (max-width :640px)  {
+			.vb_inner.my_page span.myIMG{display:none}
+
+			
+			.top_tab_inner ul.my_menu li a:before{content:'MY'; display:none}
+			.top_tab_inner ul.my_menu li a{ font-size:15px;padding:10px ; text-align:center}
+			.top_tab_inner ul.my_menu li a span{ display:block; position:relative; font-size:13px; padding:5px 20px ; background:#fff; border-radius:50px; text-align:center; color:#2883F4;top:4px; float:none}
+			
+		}
+			
+			
+	</style>
+  
+</head>
+<body>
+
+	<div id="sb-site">
+	    <div class="header_wrap">
+    <div class="header_inner">
+        <h1><a href="../index.html">KISTI 기계학습 데이터 공유·활용 서비스</a></h1>
+        <div class="top_nav_wrap">
+                                                    
+            <ul id="gnb" class="gnb">
+                <li class="menu">
+                    <a href="index.html" class="nav_menu_a active_nav">데이터셋</a>
+                    <div class="sub_menu">
+                        <ul class="nav_sub_icon01">
+                            <li><a href="index.html">검색</a></li>
+                            <li><a href="../gallery/index.html">활용갤러리</a></li>  
+                                                    </ul>
+                    </div>
+                </li>
+                <li class="menu">
+                    <a href="../my/data/index.html" class="nav_menu_a ">코드모델</a>
+                    <div class="sub_menu" style="display: none;">
+                        <ul style="display: none;" class="nav_sub_icon03">
+                                <li><a href="../my/data/index.html">내 데이터</a></li>
+                                                        <li><a href="../my/request/index.html">활용신청</a></li>
+                            <!--
+                            <li><a href="#">활용갤러리</a></li>
+                            -->
+                            <li><a href="../my-openapi/request/index.html">오픈API</a></li>
+                        </ul>
+                    </div>
+                </li>       
+                                <li class="menu">
+                    <a href="../contest/index.html" class="nav_menu_a">경진대회</a>
+                    <div class="sub_menu last_menu " style="display: none;">
+                        <ul style="display: none;">
+                            <li><a href="../contest/index.html">2022 경진대회</a></li>
+                        </ul>
+                    </div> 
+                </li>
+                
+                <li class="menu">
+                    <a href="../contest/index.html" class="nav_menu_a">워크벤치</a>
+                    <div class="sub_menu last_menu " style="display: none;">
+                        <ul style="display: none;">
+                            <li><a href="../contest/index.html">2022 경진대회</a></li>
+                        </ul>
+                    </div>
+                </li>
+                
+                <li class="menu">
+                    <a href="../contest/index.html" class="nav_menu_a">소개</a>
+                    <div class="sub_menu last_menu" style="display: none;">
+                        <ul style="display: none;" class="nav_sub_icon04">
+                            <li><a href="../about/intro.html">소개</a></li>
+                            <li><a href="../about/terms.html">이용약관</a></li>
+                            <li><a href="../about/guide.html">이용안내</a></li>
+                            <li><a href="../about/openapi.html">오픈API안내</a></li>
+                            <li><a href="../notice/index.html">공지사항</a></li>
+							<!-- <li><a href="/notice/"></a></li> -->
+                        </ul>
+                    </div>
+                </li>
+                
+            </ul>
+        </div>
+        <div class="gnb_bg">
+            <div class="bg_wrap"></div>
+        </div>
+        <div class="gnb_back_bg"  style="display:none;">nav bg</div>
+         <div class="top_right_box">
+        	<div class="header_login_col"> 
+            						<a href="auth/login.html" class="header_mypage_bt"><span>마이페이지</span></a>
+            </div>
+            <div class="header_login_col">
+                                    <a href="../auth/login.html" class="header_login_bt"><span>로그인</span></a>
+                 
+            </div>
+            <div class="tablet_nav sb-toggle-right">
+                <a href="#" class="tablet_nav_bt" id="mnav_bt">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                </a>
+            </div>
+        </div><!-- top_right_box : e  -->
+    </div>
+</div><!-- header_wrap: e -->	    	
+  <div class="visual_box">
+		<div class="vb_inner my_page">
+			<span class="myIMG"></span><h3 class="">My Page</h3><a href="#"><span class="editINFO"> 개인정보 수정</span></a>
+			<!-- <p>기계학습 데이터 공유&middot;활용 서비스 이용안내</p> -->
+		</div>
+	</div>
+    <div class="top_tab_wrap">
+		<div class="top_tab_inner">
+			<ul class="my_menu">
+            	<li><a href="#">데이터<span>1</span></a></li>
+                <li><a href="#">저장소 사용량<span>0</span></a></li>
+                <li><a href="#">활용 신청<span>0</span></a></li>
+                <li><a href="#">신청 API<span>0</span></a></li>
+            </ul>
+		</div>
+	</div>
+    
+    
+	<div class="sub_container">
+		<div class="brick">
+		     <div class="join_box">
+             <div class="_Mydata">
+	        			<h4>데이터</h4>
+                        <div>데이터 목록</div>
+                        
+                        <h4 class="mgt_40">활용신청</h4>
+                        <div>데이터 목록</div>
+                        
+                         <h4 class="mgt_40">신청API</h4>
+                        <div>데이터 목록</div>
+				
+              
+                
+        	</div>
+		</div>
+	</div>
+</div>
+	    <div class="footer_wrap">
+    <div class="footer_inner">
+        <p><span>우)34141 대전광역시 유성구 대학로 245 한국과학기술정보연구원. <a href="mailto:aida@kisti.re.kr" style="color: white; margin-left: 10px;">E-Mail. aida@kisti.re.kr</a></span>
+COPYRIGHT@2021 KISTI.ALL RIGHTS RESERVED.</p>
+        <div class="footer_link_box">
+            <a href="javascript:void(0)" class="f_l_text">주요 사이트</a>
+            <div class="f_l_drop">
+                <ul>
+                    <li><a href="https://www.kisti.re.kr/" target="_blank">KISTI</a></li>
+                    <li><a href="https://www.ntis.go.kr/" target="_blnak">NTIS</a></li>
+                    <li><a href="https://dataon.kisti.re.kr/" target="_blnak">DataON</a></li>
+                    <li><a href="https://scienceon.kisti.re.kr/" target="_blnak">ScienceON</a></li>
+                    <li><a href="https://accesson.kisti.re.kr/" target="_blnak">AccessON</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer_term">
+            <a href="privacy.html">개인정보처리방침</a>
+        </div>
+    </div>
+</div>	</div> <!-- sb-site -->
+
+<!-- 모바일 화면에서 오른쪽 메뉴 -->
+<div class="sb-slidebar sb-right">
+	<div class="right_nav_box">
+		<div class="mobile_user_box">
+			<div class="mn_user_name">
+									<a href="../auth/login.html">Login</a>
+                 
+			</div>
+		</div>
+		<div id="accordion_mobile" class="left_nav_inner">
+			<h3><em>데이터셋</em></h3>
+			<div class="left_sub_menu">
+				<ul>
+					<li><a href="../data/index.html">검색</a></li>
+					<li><a href="../gallery/index.html">활용갤러리</a></li>
+									</ul>
+			</div>
+			<h3><em>My데이터</em></h3>
+			<div class="left_sub_menu">
+				<ul>
+					   <li><a href="../my/data/index.html">내 데이터</a></li>
+				                        <li><a href="../my/request/index.html">활용신청</a></li>
+                    <!--
+                    <li><a href="#">활용갤러리</a></li>
+                    -->
+                    <li><a href="../my-openapi/request/index.html">오픈API</a></li>
+				</ul>
+			</div>
+			
+			            
+			<h3><em>소개</em></h3>
+			<div class="left_sub_menu">
+				<ul>
+					<li><a href="intro.html">소개</a></li>
+					<li><a href="terms.html">이용약관</a></li>
+					<li><a href="guide.html">이용안내</a></li>
+					<li><a href="openapi.html">오픈API안내</a></li>
+					<li><a href="../notice/index.html">공지사항</a></li>
+				</ul>
+			</div>
+			
+			<h3><em>경진대회</em></h3>
+			<div class="left_sub_menu contest">
+				<ul>
+					<li><a href="../contest/index.html">2022 경진대회</a></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery-ui.js"></script>
+<script type="text/javascript" src="../js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript" src="../js/jquery.scroll.pack.js"></script>
+<script type="text/javascript" src="../lib/waitMe/waitMe.min.js"></script>
+<script type="text/javascript" src="../js/common.js"></script>
+<script type="text/javascript" src="../js/utilsed84.js?v=20200729"></script>
+<script type="text/javascript" src="../js/slidebars.js"></script>
+<script type="text/javascript" src="../js/owl.carousel.js"></script>
+<script type="text/javascript" src="../lib/sweetalert/sweetalert2.min.js"></script>
+
+<script type="text/javascript">
+BASE = "";
+login = "";
+
+$(function() {
+	$.slidebars();
+	$(".sub_search_bt").click(function(){
+		$(".mobile_s_inner").toggleClass("search_active");
+	});
+	$(".m_toggle_bt").click(function(){
+		$(".m_toggle_box").toggleClass("tm_open_type");
+	});
+	// 오른쪽 퀵 메뉴
+	var lnb = $('.right_nav_box').offset().top;
+ 	$(window).scroll(function(){
+		var window = $(this).scrollTop();
+		if(lnb <= window) {
+			$(".right_nav_box").addClass("r_q_fixed");
+		} else {
+			$(".right_nav_box").removeClass("r_q_fixed");
+		}
+ 	})
+
+});
+</script>
+
+<script type="text/javascript">
+	$(function() {
+		$('.api_get_box').on('click', function() {
+			var $container = $(this).parent();
+			if($container.hasClass('api_on')) {
+				$container.removeClass('api_on');
+			}
+			else $container.addClass('api_on'); 
+		});
+	});
+</script>
+
+</body>
+
+<!-- Mirrored from aida.kisti.re.kr/about/guide by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:10 GMT -->
+</html>
+

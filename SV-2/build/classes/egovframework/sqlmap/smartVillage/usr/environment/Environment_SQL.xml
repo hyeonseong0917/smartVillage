@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE sqlMap PUBLIC "-//iBATIS.com//DTD SQL Map 2.0//EN" "http://www.ibatis.com/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="Environment">
+
+	<resultMap id="invironmentInfo" class="egovframework.smartVillage.usr.environment.vo.InvironmentInfoVO">
+		<result property="thingModelAttributeId" column="thing_model_attribute_id" columnIndex="1"/>
+		<result property="thingModelAttributeName" column="thing_model_attribute_name" columnIndex="2"/>
+		<result property="thingModelAttributeType" column="thing_model_attribute_type" columnIndex="3"/>
+		<result property="thingModelAttributeValue" column="thing_model_attribute_value" columnIndex="4"/>
+	</resultMap>
+	
+	<select id="EnvironmentDAO.selectEnvironmentInfo" parameterClass="string" resultMap="invironmentInfo" >
+		SELECT
+	    id AS thing_model_attribute_id,
+	    CASE
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0001' THEN '주출입구'
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0002' THEN '도보출입구'
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0003' THEN '1단지출입구'
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0004' THEN '스마트플라자'
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0005' THEN '공용공간'
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0006' THEN '코리도1'
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0007' THEN '코리도2'
+	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0008' THEN '코리도3'
+	    END AS thing_model_attribute_name,
+	    #attributeType# AS thing_model_attribute_type,
+	    CASE
+	        WHEN #attributeType# = 'humidity' THEN humidity
+			WHEN #attributeType# = 'temperature' THEN air_temperature
+			WHEN #attributeType# = 'fine_dust' THEN pm10
+			WHEN #attributeType# = 'ultra_particles' THEN pm25
+			WHEN #attributeType# = 'noise_pollution' THEN noise
+			WHEN #attributeType# = 'ilumination' THEN iluminance
+	    END AS thing_model_attribute_value
+	FROM
+	    smartpole1
+	ORDER BY
+	    thing_model_attribute_id DESC
+	LIMIT 8;
+		<!-- SELECT
+			thing_model_attribute_id,
+			thing_model_attribute_name,
+			thing_model_attribute_type,
+			thing_model_attribute_value
+		FROM
+			tbl_thing_attr_hist
+		WHERE 
+			(thing_model_attribute_id, thing_model_attribute_type, thing_model_attribute_time) in (
+				SELECT
+					thing_model_attribute_id,
+					thing_model_attribute_type,
+					max(thing_model_attribute_time)
+				FROM
+					tbl_thing_attr_hist
+				WHERE
+					thing_model_attribute_type = #attributeType#
+				GROUP BY
+					thing_model_attribute_id,
+					thing_model_attribute_type
+			)
+		ORDER BY
+			thing_model_attribute_id -->
+	</select>
+</sqlMap>

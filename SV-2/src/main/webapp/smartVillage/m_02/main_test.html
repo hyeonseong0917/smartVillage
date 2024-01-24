@@ -1,0 +1,265 @@
+<!doctype html>
+<html>
+
+<!-- Mirrored from aida.kisti.re.kr/auth/login by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:10 GMT -->
+<!-- Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<!-- /Added by HTTrack -->
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="cache-Control" content="co-cache" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+<title>스마트빌리지</title>
+<link rel="shortcut icon" href="../img/favicon.ico" type="image/x-icon">
+<!--<link rel="stylesheet" href="../css/bootstrap.min.css">
+--><link rel="stylesheet" href="../css/layout.css">
+
+
+<!--[if lt IE 9]>
+    	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+
+</head>
+<body>
+
+  	 <div class="villageMap">
+
+
+
+       <!--컨텐츠 타이틀 : e  -->
+      
+       	<a class="" href=""><p id="step_01" class="_step_01" style="left:15%; transform:translateY(0%)"><span class="arrow_box">주출입구</span>21</p></a>
+        <a class="" href=""><p id="step_02" class="_step_02" style="left:70%; transform:translateY(-100%)"><span>도보출입구</span>22</p></a>
+        <a class="" href=""><p id="step_03" class="_step_03" style="left:65%; transform:translateY(-200%)"><span>1단지출입구</span>23</p></a>
+        <a class="" href=""><p id="step_04" class="_step_01" style="left:68%; transform:translateY(-300%)"><span>스마트플라자</span>24</p></a>
+        <a class="" href=""><p id="step_05" class="_step_01" style="left:35%; transform:translateY(-400%)"><span>공용공간</span>21</p></a>
+        <a class="" href=""><p id="step_06" class="_step_01" style="left:40%; transform:translateY(-500%)"><span>코리도1</span>25</p></a>
+        <a class="" href=""><p id="step_07" class="_step_01" style="left:49%; transform:translateY(-600%)"><span>코리도2</span>25</p></a>
+        <a class="" href=""><p id="step_08" class="_step_01" style="left:62%; transform:translateY(-700%)"><span>코리도3</span>25</p></a>                       
+
+
+     </div>       
+
+
+
+</body>
+
+<style type="text/css">
+
+/* 말풍선 적절한 top 과 margin-left 로 위치조정 */
+
+.villageMap a p span.arrow_box {
+
+  display: none;
+
+  position: absolute;
+
+  width: 100px;
+
+  left: 0;
+
+  top: 35px;
+
+  border-radius: 8px;
+
+  background: #333;
+
+  color: #fff;
+
+  font-size: 8px;
+
+}
+
+ 
+
+.villageMap a p span.arrow_box:after {
+
+  position: absolute;
+
+  bottom: 100%;
+
+  left: 50%;
+
+  width: 0;
+
+  height: 0;
+
+  margin-left: -40px;
+
+  border: solid transparent;
+
+  border-color: rgba(51, 51, 51, 0);
+
+  border-bottom-color: #333;
+
+  border-width: 10px;
+
+  pointer-events: none;
+
+  content: ' ';
+
+}
+
+.villageMap a p:hover span {
+
+  display: block;
+
+}
+
+ 
+
+ 
+
+</style>
+
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script> 
+<script type="text/javascript">
+
+window.onload = () => {
+	position();
+}
+
+window.onresize = () => {
+	position();
+}
+
+function position() {	
+	  const vw100 = $('.villageMap').width();
+	  const vh100 = $('.villageMap').height();
+
+	  /* background image size (source) */
+
+	  const bgw = 1480
+	  const bgh = 600
+
+	  /* projected background image size and position */
+
+	  const bgscale = Math.max(vh100 / bgh, vw100 / bgw)
+
+	  const projectedWidth  = bgw * bgscale | 0
+	  const projectedHeight = bgh * bgscale | 0
+
+	  const leftOverflow = (projectedWidth  - vw100) / 2 | 0
+	  const topOverflow  = (projectedHeight - vh100) / 2 | 0
+
+	  console.log(bgscale.toFixed(2), projectedWidth, projectedHeight, leftOverflow, topOverflow)
+	  
+	  const w = projectedWidth - leftOverflow;
+	  const h = projectedHeight - topOverflow;
+	  var t = 0;
+	  var l = 0;
+	  	
+	  	t = Math.round((h* 0.29 * bgscale.toFixed(2)));
+	  	$('#step_01').css({ top : t + "px"});
+	  	
+	  	t = Math.round((h* 0.53 * bgscale.toFixed(2)));
+	  	$('#step_02').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.25 * bgscale.toFixed(2)));
+	  	$('#step_03').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.28 * bgscale.toFixed(2)));
+	  	$('#step_04').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.19 * bgscale.toFixed(2)));
+	  	$('#step_05').css({ top : t + "px"});
+	  	
+	  	console.log(t);
+	   	t = Math.round((h* 0.23 * bgscale.toFixed(2)));
+	  	$('#step_06').css({ top : t + "px"});
+	  	
+	   	t = Math.round((h* 0.33 * bgscale.toFixed(2)));
+	  	$('#step_07').css({ top : t + "px"});	  	
+
+	   	t = Math.round((h* 0.47));
+	  	$('#step_08').css({ top : t + "px"});
+
+}
+
+
+/*
+$( window ).resize( function() {
+
+	var imgWidth = 2368;
+	var imgHeight = 1473;
+	
+	var containerWidth  = $('.villageMap').width();
+	var containerHeight = $('.villageMap').height();
+	
+	var imgRatio = (imgHeight / imgWidth);
+	var containerRatio = (containerHeight / containerWidth);
+	
+	if (containerRatio > imgRatio) 
+	{
+	    //finalHeight = containerHeight
+	    //finalWidth = (containerHeight / imgRatio)
+	    var top = $('#step_01').css("top");
+	    var left = (top / imgRatio);
+	    $('#step_01').css({ left : left + "px"});
+	} 
+	else 
+	{
+	    //finalWidth = containerWidth 
+	    //finalHeight = (containerWidth / imgRatio)
+	    
+	    var left = $('#step_01').css("left");
+	    var top = (left / imgRatio);
+	    $('#step_01').css({ top : top + "px"});
+	    
+	    
+	}
+
+	var a = w * h;
+	var c = 1480 * 600;
+	var r = Math.round(a/c * 100)/100
+	console.log($('.villageMap').width()+'/'+$('.villageMap').height());
+	console.log(r);
+	
+	var left = 0;
+	console.log('left:'+$('#step_01').css("left"));
+	l = Math.round($('#step_01').css("left")*r);
+	console.log('보정:'+Math.round($('#step_01').offset().left*r));
+	$('#step_01').css({ left : l + "px"});
+	*/
+	//console.log("width:"+$('.villageMap').width());
+	//console.log("height:"+$('.villageMap').height());
+	
+	/* 백이미지 width:2368, height:1473 */ /*01 버튼  left:520 top:540*/ /*01 버튼  left:22% top:37*/ 
+	//$(selector).css( { left: x, top: y } )
+	/*
+	
+	var h = $('.villageMap').height();
+	var l = Math.round((w* 0.15));
+	$('#step_01').css({ left : l + "px"});
+	var t = Math.round((h * 0.30));
+	$('#step_01').css({ top : t + "px"});
+	*/
+	//console.log("left:"+l);
+	//console.log("left off:"+$('#step_01').offset().left);
+	/*
+	var w = $('.villageMap').width();
+	var l = 0;
+	
+	if(w < 768){
+		$('#step_01').hide();		
+	}else{
+		$('#step_01').show();
+		l = $('#step_01').offset().left;
+	}
+	var r = Math.round( w / 1480 * 100)/100;
+	if(w < 960){
+		l = Math.round((w * 0.15 * r)) ;
+		console.log(r);
+	}else{
+		l = Math.round(w * 0.15);
+	}
+	$('#step_01').css({ left : l + "px"});
+	
+	console.log($('.villageMap').width()+'/'+$('.villageMap').height());
+
+  } );
+	*/
+</script>
+<!-- Mirrored from aida.kisti.re.kr/auth/login by HTTrack Website Copier/3.x [XR&CO'2014], Fri, 28 Oct 2022 06:31:11 GMT -->
+</html>
