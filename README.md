@@ -14,7 +14,7 @@
 ### 1. SV war파일 import
 
 ### 2. build path(SV 프로젝트 우클릭 후 properties - Java Build Path로 접근)에서 ClassPath에 postgresql-42.7.1.jar(jdbc 연결 파일)를 Add External JARs를 통해 추가
-
+![img](./images/build.png)
 ### 3. jdk 경로의 lib에 postgresql jdbc 연결 파일 추가
 
 ### 4. 톰캣 설치 경로의 lib에도 postgresql jdbc 연결 파일 추가
@@ -65,7 +65,7 @@
 3. WaterEnergy_SQL.xml의 모든 쿼리 수정
 
 ### 1. 냉방 탭 추가
-
+![img](./images/4.png)
 - SV/src/webapp/smartVillage/m_01 디렉토리의 _02.html, _03.html, _04.html, _05.html 수정
 - <div class=*"topM_box"*> 부분에 냉방 하이퍼링크 추가
     
@@ -205,8 +205,6 @@
                 reg_year ASC, reg_month ASC;
     ```
     
-- 
-- 
 - WaterEnergyDAO.java
     - selectCoolingUsage 메소드 추가
         - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
@@ -397,7 +395,7 @@
             
 
 ### 2. 전기 탭에 전기 송전량 및 전년 전기 송전량 추가
-
+![img](./images/3.png)
 - ExportChartVo.java
     - 송전량 변수 추가를 위해 전기 에너지에 대해 ExportChartVo객체 생성
         - recentExports변수와 prevExports 변수 추가
@@ -735,17 +733,18 @@
 - <select id=*"WaterEnergyDAO.selectElectricUsageChartData"* parameterClass=*"string"* resultMap=*"exportChartInfo"* >는 위에서 작성한 전기 탭 쿼리 참조
 - <select id=*"WaterEnergyDAO.selectHotWaterUsage"* parameterClass=*"string"* resultMap=*"usageInfo"* >와 같은 selectUsage는 id=”selectCoolingUsage”에서 에너지 타입 변수만 바꿔서 동일한 쿼리로 작성
 - <select id=*"WaterEnergyDAO.selectWaterUsageChartData"* parameterClass=*"string"* resultMap=*"usageChartInfo"* >와 같은 selectWaterUsageChartData는 id=”selectCoolingUsageChartData” 에서 에너지 타입 변수만 바꿔 동일한 쿼리로 작성
-
+![img](./images/2.png)
+![img](./images/5.png)
+![img](./images/6.png)
 # Environment
 
 1. 각 구역 별 가장 최근의 대기량 표시 및 각 구역을 Hover했을 때 현재 시간 기준 6시간 전까지의 대기량 표시
-
 ### Environment 최근 데이터 부재 문제
 
 - smartpole1 테이블에 최근 데이터가 없어서 테스트를 위해 Environment_SQL.xml파일의 WHERE 조건문에서 각 시간을 NOW()가 아닌 NOW() - INTERVAL '1 month' - INTERVAL '15 day'로 대체하여 작성하였습니다.
 
 ### 1. 각 구역 별 가장 최근의 대기량 표시 및 각 구역을 Hover했을 때 현재 시간 기준 6시간 전까지의 대기량 표시
-
+![img](./images/7.png)
 - 각 구역 별 가장 최근의 대기량 표시 및 각 구역을 Hover했을 때 현재 시간 기준 6시간 전까지의 대기량 표시
     - Environment_SQL.xml(데이터베이스 테이블이 달라짐에 따라 모든 쿼리 재작성)
         
@@ -1030,11 +1029,17 @@
             });
             </script>
             ```
-            
+![img](./images/8.png)
+![img](./images/9.png)
+![img](./images/10.png)
+![img](./images/11.png)            
+![img](./images/12.png)            
 
 # carCare
 
 1. 세대 차량 등록현황과 차량 입출차 이벤트 표시
+![img](./images/13.png)            
+![img](./images/14.png)            
     - CarInOutVo.java
         - 동호 수, 차량 번호, 입출차 이벤트, 입출차 날짜, 입출차 시간 속성이 매핑된 객체 생성
         
@@ -1172,7 +1177,7 @@
         
 
 # Board
-
+![img](./images/15.png)            
 - Board 객체에서 사용되는 parnts변수 정의
     - Board.java
         - parnts 변수의 자료형을 long으로 변환
