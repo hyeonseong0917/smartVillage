@@ -67,11 +67,13 @@ public class EgovBBSManageServiceImpl extends EgovAbstractServiceImpl implements
 	    // 답글인 경우 1. Parnts를 세팅, 2.Parnts의 sortOrdr을 현재글의 sortOrdr로 가져오도록, 3.nttNo는 현재 게시판의 순서대로
 	    // replyLc는 부모글의 ReplyLc + 1
 	    bbsMngDAO.replyBoardArticle(board);
-
 	} else {
+		
 	    // 답글이 아닌경우 Parnts = 0, replyLc는 = 0, sortOrdr = nttNo(Query에서 처리)
-	    board.setParnts("0");
-	    board.setReplyLc("0");
+//	    board.setParnts("0");
+		board.setParnts(0);
+//	    board.setReplyLc("0");
+		board.setReplyLc(0);
 	    board.setReplyAt("N");
 
 	    bbsMngDAO.insertBoardArticle(board);

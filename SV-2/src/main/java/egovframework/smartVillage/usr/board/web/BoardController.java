@@ -124,8 +124,7 @@ private DefaultBeanValidator beanValidator;
 		paginationInfo.setTotalRecordCount(totCnt);
 	
 		model.addAttribute("resultList", map.get("resultList"));
-		model.addAttribute("resultCnt", map.get("resultCnt"));
-		model.addAttribute("boardVO", boardVO);
+		model.addAttribute("resultCnt", map.get("resultCnt"));		model.addAttribute("boardVO", boardVO);
 		model.addAttribute("paginationInfo", paginationInfo);
 	
 		return "egovframework/smartVillage/usr/board/boardList";
@@ -271,8 +270,11 @@ private DefaultBeanValidator beanValidator;
 			board.setReplyAt("Y");
 			board.setFrstRegisterId(user.getUniqId());
 			board.setBbsId(board.getBbsId());
-			board.setParnts(Long.toString(boardVO.getNttId()));
-			board.setReplyLc(Integer.toString(Integer.parseInt(boardVO.getReplyLc()) + 1));
+//			board.setParnts(Long.toString(boardVO.getNttId()));
+			board.setParnts(boardVO.getNttId());
+//			board.setReplyLc(Integer.toString(Integer.parseInt(boardVO.getReplyLc()) + 1));
+			board.setReplyLc((boardVO.getReplyLc() + 1));
+//			board.setReplyLc((boardVO.getReplyLc()));
 		
 			board.setNttCn(unscript(board.getNttCn()));	// XSS 방지
 		

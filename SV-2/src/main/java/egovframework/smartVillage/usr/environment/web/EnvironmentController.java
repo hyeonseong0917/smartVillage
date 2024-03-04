@@ -6,6 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.support.SessionStatus;
+import org.springframework.web.servlet.ModelAndView;
 
 import egovframework.com.cmm.LoginVO;
 import egovframework.com.cmm.util.EgovUserDetailsHelper;
@@ -98,5 +100,13 @@ public class EnvironmentController {
 		}
 		
 		return viewName;
+	}
+	@RequestMapping("/smartVillage/environment/getChartData.mdo")
+	public ModelAndView selectEnvironmentChartInfo(@RequestParam(value = "tabId", defaultValue="fine_dust") String tabId, SessionStatus status) throws Exception {
+		
+		ModelAndView modelAndView = new ModelAndView("jsonView");
+		LoginVO user = (LoginVO)EgovUserDetailsHelper.getAuthenticatedUser();
+		modelAndView.addObject("environmentChartInfo", environmentService.selectEnvironmentUsageChartData(tabId));
+		return modelAndView;
 	}
 }

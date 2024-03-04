@@ -36,7 +36,6 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     public void insertBoardArticle(Board board) throws Exception {
 	//long nttId = (Long)select("BBSManageDAO.selectMaxNttId");//2011.09.22
 	//board.setNttId(nttId);//2011.09.22
-	
 	insert("BBSManageDAO.insertBoardArticle", board);
     }
 
@@ -49,7 +48,6 @@ public class BBSManageDAO extends EgovComAbstractDAO {
     public long replyBoardArticle(Board board) throws Exception {
 	long nttId = (Long)select("BBSManageDAO.selectMaxNttId");
 	board.setNttId(nttId);
-	
 	insert("BBSManageDAO.replyBoardArticle", board);
 
 	//----------------------------------------------------------

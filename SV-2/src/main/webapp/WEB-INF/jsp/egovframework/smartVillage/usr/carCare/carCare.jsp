@@ -36,10 +36,16 @@
 			<li class="inout">${carInOutHist.carInOutDate}</li>
 			<li class="">${carInOutHist.carNumber}</li>
 			<li class="">${carInOutHist.carInOutTime}</li>
-			<c:if test="${carInOutHist.carInOutType eq 'CAR_IN'}">
+			<c:if test="${carInOutHist.carInOutType eq 'IN01'}">
 				<li class="date">차량 <span class="_txt_blue  pd_0">입차</span></li>
 			</c:if>
-			<c:if test="${carInOutHist.carInOutType eq 'CAR_OUT'}"> 
+			<c:if test="${carInOutHist.carInOutType eq 'IN02'}">
+				<li class="date">차량 <span class="_txt_blue  pd_0">입차</span></li>
+			</c:if>
+			<c:if test="${carInOutHist.carInOutType eq 'OT01'}"> 
+				<li class="date">차량 출차</li>
+			</c:if>
+			<c:if test="${carInOutHist.carInOutType eq 'OT02'}"> 
 				<li class="date">차량 출차</li>
 			</c:if>
 		</ul>
@@ -47,17 +53,23 @@
 	</div>
 	
 	<div class="gray_full_box">
-		<h4 class="">충전소 현황<div class="charging_set_"><p class="set_ok"><i></i>충천 대기</p><p class="set_ing"><i></i>충천 중</p><p class="set_no"><i></i>고장</p></div></h4>
+		<h4 class="">충전소 현황<div class="charging_set_"><p class="set_ok"><i></i>충전 대기</p><p class="set_ing"><i></i>충전 중</p><p class="set_no"><i></i>고장</p></div></h4>
 		<div class="chargingStation">
 			<c:forEach items="${chargeHist}" var="chargeHist" varStatus="status">
-				<c:if test="${chargeHist.chargeState eq '0'}">
-					<p class="set_ok"><i></i>${chargeHist.biotModelName}</p>
+				<c:if test="${chargeHist.chargeState eq 'ready'}">
+					<p class="set_ok"><i></i>${chargeHist.houseDongHo}충전소<br></br>충전대기</p>
 				</c:if>
-				<c:if test="${chargeHist.chargeState eq '1'}"> 
-					<p class="set_ing"><i></i>${chargeHist.biotModelName}</p>
+				<c:if test="${chargeHist.chargeState eq 'ready'}"> 
+					<p class="set_ing"><i></i>${chargeHist.houseDongHo}충전소<br></br>충전중</p>
 				</c:if>
-				<c:if test="${chargeHist.chargeState eq '2'}"> 
-					<p class="set_no"><i></i>${chargeHist.biotModelName}</p>
+				<c:if test="${chargeHist.chargeState eq 'ready'}"> 
+					<p class="set_no"><i></i>${chargeHist.houseDongHo}충전소<br></br>고장</p>
+				</c:if>
+				<c:if test="${chargeHist.chargeState eq 'charging'}"> 
+					<p class="set_ing"><i></i>${chargeHist.houseDongHo}충전소<br></br>충전중</p>
+				</c:if>
+				<c:if test="${chargeHist.chargeState eq 'unconnected'}"> 
+					<p class="set_no"><i></i>${chargeHist.houseDongHo}충전소<br></br>고장</p>
 				</c:if>
 			</c:forEach>
 		</div>

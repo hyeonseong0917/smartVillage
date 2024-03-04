@@ -108,6 +108,7 @@
 			</h3>
 		</c:when>
 		<c:otherwise>
+			<%-- "${result.replyLc}" --%>
 			<div class="
 				<c:if test="${result.replyLc >= 0}">
 					ds_row_box
@@ -119,6 +120,7 @@
 					 re
 			</c:if>
 				">
+				<%-- ${result.nttId} --%>
 				<p class="ds_list_title"><a href="javascript:fn_egov_inqire_notice('<c:out value="${result.nttId}"/>','<c:out value="${result.bbsId}"/>')">${result.nttSj}</a></p>
 				<p class="ds_list_con"><a href="javascript:fn_egov_inqire_notice('<c:out value="${result.nttId}"/>','<c:out value="${result.bbsId}"/>')">${result.nttCn}</a></p>
 				<div class="ds_type_box">

@@ -21,14 +21,9 @@
 		var date = new Date();
 		$("#useDate").text(date.getMonth()+1 + ".1~현재");
 	});
-	function enableDarkTheme() {
-	    document.body.classList.add('dark-theme');
-	    document.body.classList.remove('light-theme');
-	}
 	function drawChart() {
 		$.getJSON("${pageContext.request.contextPath}/smartVillage/waterEnergy/getChartData.mdo", {tabId:encodeURI('water')}, function(json){
-			enableDarkTheme();
-			console.log(json);
+			
 			var jsonData = json.chartInfo;
 			if(jsonData == undefined || jsonData == ""){
 				return;
@@ -63,8 +58,7 @@
 					title: "월별 물 사용량 추이",
 					height: 200,
 					legend: { position: "bottom" },
-					chartArea: { left: 20, top: 20, width: '200%', height: '200%', backgroundColor: 'black' },
-					backgroundColor: 'black',
+					/* chartArea: { left: 20, top: 20, width: '200%', height: '200%'}, */
 					tooltip : {
 					  /* trigger: 'both', */
 					  isHtml: true,
@@ -115,8 +109,8 @@
 		frm.submit();
 	}
 </script>
-<div class="title_box" style="background-color: black;">
-	<div class="title_box_inner" style="background-color: black;">
+<div class="title_box">
+	<div class="title_box_inner">
 		<h3>Water & Energy</h3>
 		<ul class="m_01">
 			<i></i>
@@ -126,8 +120,8 @@
 	</div>
 </div>
 
-<div class="topM_box" style="background-color: black;">
-	<div class="topM_box_inner" style="background-color: black;">
+<div class="topM_box" >
+	<div class="topM_box_inner" >
 		<p><a href="javascript:moveTab('water')" class="active m_01"><i ></i>물</a></p>
 		<p><a href="javascript:moveTab('electric')" class=" m_02"><i ></i>전기</a></p>
 		<p><a href="javascript:moveTab('cooling')" class=" m_03"><i ></i>냉방</a></p>
@@ -136,15 +130,15 @@
 	</div>
 </div>
 
-<div class="sub_container" style="background-color: black;">
-	<div class="con_title_box" style="background-color: black;">
-		<div class="con_title_box_inner" style="background-color: black;">
-			<h4 style="background-color: black;">전년 동기대비 물 사용량</h4>
+<div class="sub_container" >
+	<div class="con_title_box" >
+		<div class="con_title_box_inner" >
+			<h4>전년 동기대비 물 사용량</h4>
 		</div>
 	</div>
 	<!--컨텐츠 타이틀 : e-->
 
-	<div class="data_box" style="background-color: black;">
+	<div class="data_box">
 		<ul class="defTable" >
 			<li>물 사용 기간<span id="useDate"></span></li>
 			<li>현재 사용량<span>${usageInfo.recentUsage } m<sup>3</sup></span></li>

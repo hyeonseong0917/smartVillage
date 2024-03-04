@@ -16,6 +16,16 @@
 		
 	<select id="CarCareDAO.selectCarRegistInfo" parameterClass="string" resultClass="CarRegist" >
 		SELECT
+			dongho AS houseDongHo,
+			car_num AS carNumber,
+			reg_date AS regDate
+		FROM
+			car_regist
+		WHERE
+			dongho = #houseDongHo#
+		ORDER BY
+			reg_date;
+		<!-- SELECT
 			house_dong_ho AS houseDongHo,
 			car_number AS carNumber,
 			DATE_FORMAT(STR_TO_DATE(reg_date,'%Y%m%d'), '%Y.%m.%d') AS regDate
@@ -24,11 +34,45 @@
 		WHERE
 			house_dong_ho = #houseDongHo#
 		ORDER BY
-			reg_date
+			reg_date -->
 	</select>
 	
 	<select id="CarCareDAO.selectCarInOutHist" parameterClass="string" resultMap="carInOutVo" >
-		SELECT
+		SELECT DISTINCT
+		    car_regist.dongho AS house_dong_ho,
+		    car_regist.car_num AS car_number,
+		    car_in_out_hist.in_out_type AS car_in_out_type,
+		    DATE(car_in_out_hist.parking_time) AS car_in_out_date,
+		    SUBSTRING(car_in_out_hist.parking_time FROM 12) AS car_in_out_time
+		FROM
+		    car_regist car_regist,
+		    parking_management_system1 car_in_out_hist
+		WHERE
+		    car_in_out_hist.vin = car_regist.car_num
+		    AND car_regist.dongho = '101'
+		ORDER BY
+		    car_in_out_date DESC,
+		    car_in_out_time DESC
+		LIMIT 10;
+		
+	
+		<!-- SELECT
+		    car_regist.dongho AS house_dong_ho,
+		    car_regist.car_num AS car_number,
+		    car_in_out_hist.in_out_type AS car_in_out_type,
+		    DATE(car_in_out_hist.parking_time) AS car_in_out_date,
+			SUBSTRING(car_in_out_hist.parking_time FROM 12) AS car_in_out_time
+		FROM
+			car_regist car_regist,
+		    parking_management_system1 car_in_out_hist
+		WHERE
+			car_in_out_hist.vin = car_regist.car_num
+			AND car_regist.dongho = #houseDongHo#
+		ORDER BY
+			car_in_out_hist.parking_time desc
+		LIMIT 10 -->
+		
+		<!-- SELECT
 			car_regist.house_dong_ho,
 			car_regist.car_number,
 			car_in_out_hist.car_in_out_type,
@@ -42,11 +86,224 @@
 			AND car_regist.house_dong_ho = #houseDongHo#
 		ORDER BY
 			car_in_out_datetime desc
-		LIMIT 10
+		LIMIT 10 -->
 	</select>
 	
 	<select id="CarCareDAO.selectChargeHist" parameterClass="string" resultClass="ChargeHist" >
 		SELECT
+		    CASE 
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='101' THEN '101'
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='102' THEN '102'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='103' THEN '103'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='104' THEN '104'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='105' THEN '105'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='106' THEN '106'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='107' THEN '107-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='108' THEN '107-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='109' THEN '107-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='110' THEN '108-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='111' THEN '108-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='112' THEN '108-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='113' THEN '109-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='114' THEN '109-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='115' THEN '109-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='116' THEN '110-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='117' THEN '110-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='118' THEN '110-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='119' THEN '111-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='120' THEN '111-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='121' THEN '111-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='122' THEN '112-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='123' THEN '112-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='124' THEN '112-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='125' THEN '113-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='126' THEN '113-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='127' THEN '113-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='128' THEN '114-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='129' THEN '114-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='130' THEN '114-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='131' THEN '115'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='132' THEN '116'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='133' THEN '117'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='134' THEN '118'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='135' THEN '119'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='136' THEN '120'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='137' THEN '121'    
+		    END AS houseDongHo,
+		    real_time AS regDate,
+		    thing AS biotModelName,
+		    charger_status AS chargeState
+		FROM
+		    electric_vehicle_charging_system1
+		WHERE 
+		    (CASE 
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='101' THEN '101'
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='102' THEN '102'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='103' THEN '103'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='104' THEN '104'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='105' THEN '105'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='106' THEN '106'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='107' THEN '107-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='108' THEN '107-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='109' THEN '107-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='110' THEN '108-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='111' THEN '108-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='112' THEN '108-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='113' THEN '109-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='114' THEN '109-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='115' THEN '109-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='116' THEN '110-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='117' THEN '110-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='118' THEN '110-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='119' THEN '111-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='120' THEN '111-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='121' THEN '111-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='122' THEN '112-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='123' THEN '112-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='124' THEN '112-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='125' THEN '113-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='126' THEN '113-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='127' THEN '113-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='128' THEN '114-1'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='129' THEN '114-2'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='130' THEN '114-3'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='131' THEN '115'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='132' THEN '116'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='133' THEN '117'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='134' THEN '118'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='135' THEN '119'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='136' THEN '120'	
+				WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='137' THEN '121'    
+		    END, thing, real_time) IN (
+		        SELECT
+		            CASE 
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='101' THEN '101'
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='102' THEN '102'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='103' THEN '103'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='104' THEN '104'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='105' THEN '105'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='106' THEN '106'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='107' THEN '107-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='108' THEN '107-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='109' THEN '107-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='110' THEN '108-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='111' THEN '108-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='112' THEN '108-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='113' THEN '109-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='114' THEN '109-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='115' THEN '109-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='116' THEN '110-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='117' THEN '110-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='118' THEN '110-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='119' THEN '111-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='120' THEN '111-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='121' THEN '111-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='122' THEN '112-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='123' THEN '112-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='124' THEN '112-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='125' THEN '113-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='126' THEN '113-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='127' THEN '113-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='128' THEN '114-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='129' THEN '114-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='130' THEN '114-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='131' THEN '115'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='132' THEN '116'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='133' THEN '117'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='134' THEN '118'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='135' THEN '119'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='136' THEN '120'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='137' THEN '121'    
+		            END AS houseDongHo,
+		            thing AS biotModelName, 
+		            max(real_time) AS regDate
+		        FROM
+		            electric_vehicle_charging_system1
+		        WHERE 
+					CASE 
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='101' THEN '101'
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='102' THEN '102'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='103' THEN '103'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='104' THEN '104'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='105' THEN '105'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='106' THEN '106'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='107' THEN '107-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='108' THEN '107-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='109' THEN '107-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='110' THEN '108-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='111' THEN '108-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='112' THEN '108-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='113' THEN '109-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='114' THEN '109-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='115' THEN '109-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='116' THEN '110-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='117' THEN '110-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='118' THEN '110-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='119' THEN '111-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='120' THEN '111-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='121' THEN '111-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='122' THEN '112-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='123' THEN '112-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='124' THEN '112-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='125' THEN '113-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='126' THEN '113-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='127' THEN '113-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='128' THEN '114-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='129' THEN '114-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='130' THEN '114-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='131' THEN '115'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='132' THEN '116'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='133' THEN '117'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='134' THEN '118'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='135' THEN '119'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='136' THEN '120'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='137' THEN '121'    
+		            END=#houseDongHo#
+		        GROUP BY
+		            CASE 
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='101' THEN '101'
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='102' THEN '102'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='103' THEN '103'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='104' THEN '104'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='105' THEN '105'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='106' THEN '106'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='107' THEN '107-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='108' THEN '107-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='109' THEN '107-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='110' THEN '108-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='111' THEN '108-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='112' THEN '108-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='113' THEN '109-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='114' THEN '109-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='115' THEN '109-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='116' THEN '110-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='117' THEN '110-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='118' THEN '110-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='119' THEN '111-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='120' THEN '111-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='121' THEN '111-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='122' THEN '112-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='123' THEN '112-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='124' THEN '112-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='125' THEN '113-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='126' THEN '113-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='127' THEN '113-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='128' THEN '114-1'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='129' THEN '114-2'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='130' THEN '114-3'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='131' THEN '115'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='132' THEN '116'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='133' THEN '117'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='134' THEN '118'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='135' THEN '119'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='136' THEN '120'	
+						WHEN SUBSTRING(thing FROM LENGTH(thing) - 2)='137' THEN '121'    
+		            END,
+		            thing
+		    )
+		ORDER BY thing;
+		
+		<!-- SELECT
 			house_dong_ho AS houseDongHo,
 			reg_date AS regDate,
 			biot_model_name AS biotModelName,
@@ -67,6 +324,6 @@
 					biot_model_name,
 					house_dong_ho
 			)
-		ORDER BY biot_model_name
+		ORDER BY biot_model_name -->
 	</select>
 </sqlMap>

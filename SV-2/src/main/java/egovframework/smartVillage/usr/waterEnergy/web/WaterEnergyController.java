@@ -89,7 +89,6 @@ public class WaterEnergyController {
 			case "water":
 				model.addAttribute("usageInfo", waterEnergyService.selectWaterUsage(user.getAddress()));
 				viewName = "egovframework/smartVillage/usr/waterEnergy/water";
-//				System.out.println(user.getAddress()); 101
 				break;
 			case "electric":
 				model.addAttribute("usageInfo", waterEnergyService.selectElectricUsage(user.getAddress()));
@@ -100,13 +99,10 @@ public class WaterEnergyController {
 				viewName = "egovframework/smartVillage/usr/waterEnergy/heating";
 				break;
 			case "cooling":
-//				System.out.println("cool");
 				model.addAttribute("usageInfo", waterEnergyService.selectCoolingUsage(user.getAddress()));
-//				System.out.println(waterEnergyService.selectCoolingUsage(user.getAddress()));
 				viewName= "egovframework/smartVillage/usr/waterEnergy/cooling";
 				break;
 			case "hotWater":
-//				System.out.println("hot");
 				model.addAttribute("usageInfo", waterEnergyService.selectHotWaterUsage(user.getAddress()));
 				viewName = "egovframework/smartVillage/usr/waterEnergy/hotWater";
 				break;

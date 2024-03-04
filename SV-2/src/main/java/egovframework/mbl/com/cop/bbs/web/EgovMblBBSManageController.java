@@ -289,8 +289,12 @@ public class EgovMblBBSManageController {
 		    board.setReplyAt("Y");
 		    board.setFrstRegisterId(user.getUniqId());
 		    board.setBbsId(board.getBbsId());
-		    board.setParnts(Long.toString(boardVO.getNttId()));
-		    board.setReplyLc(Integer.toString(Integer.parseInt(boardVO.getReplyLc()) + 1));
+//		    board.setParnts(Long.toString(boardVO.getNttId()));
+		    board.setParnts(boardVO.getNttId());
+//		    board.setReplyLc(Integer.toString(Integer.parseInt(boardVO.getReplyLc()) + 1));
+		    board.setReplyLc((boardVO.getReplyLc() + 1));
+		    System.out.println(boardVO.getReplyLc());
+//		    board.setReplyLc((boardVO.getReplyLc()));
 	
 		    board.setNttCn(unscript(board.getNttCn()));	// XSS 방지
 	

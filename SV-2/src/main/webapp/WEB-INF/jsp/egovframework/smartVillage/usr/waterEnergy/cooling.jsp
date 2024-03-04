@@ -3,7 +3,6 @@
 <script>
 	google.charts.load('current', {'packages':['corechart']});
 	google.charts.setOnLoadCallback(drawChart);
-	console.log("hello");
 	$(function() {
 		var date = new Date();
 		$("#useDate").text(date.getMonth()+1 + ".1~현재");
@@ -17,7 +16,7 @@
 			} else {
 				let chartData = [['월', '전년 냉방 사용량', '냉방 사용량' ]];
 				for(var i=0; i<jsonData.length; i++){
-					let prevRecentDifference = jsonData[i].prevUsages - jsonData[i].recentUsages;
+					/* let prevRecentDifference = jsonData[i].prevUsages - jsonData[i].recentUsages; */
 					let data = [jsonData[i].regYear+" "+jsonData[i].regMonth, Number(jsonData[i].prevUsages.toFixed(4)), Number(jsonData[i].recentUsages.toFixed(4))];
 					chartData.push(data);
 				}
@@ -25,14 +24,14 @@
 				var view = new google.visualization.DataView(data);
 				view.setColumns([
 					0,
-					1,  // 전년 온수 사용량 열
+					1,  // 전년 냉방 사용량 열
 				    {
 				        calc: "stringify",
 				        sourceColumn: 1,
 				        type: "string",
 				        role: "annotation"
 				    },
-				    2,  // 온수 사용량 열
+				    2,  // 냉방 사용량 열
 				    {
 				        calc: "stringify",
 				        sourceColumn: 2,

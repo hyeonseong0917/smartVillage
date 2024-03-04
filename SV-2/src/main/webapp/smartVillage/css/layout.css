@@ -4159,7 +4159,7 @@ ul.defTable li span i{float:right; margin-left:5px;vertical-align:middle;font-si
 .charging_set_ p i{width:17px;height: 17px;display: inline-block; margin: 0 auto 0; border-radius:100px;margin-right:5px; vertical-align:middle}
 .charging_set_ p.set_ok i{border:1px solid #00D871; background:url(../img/background/icon_charging.png) center -27px no-repeat #fff; background-size:14px}
 .charging_set_ p.set_ing i{border:1px solid #86D8F4; background:url(../img/background/icon_charging.png) center -1px no-repeat #fff; background-size:14px}
-.charging_set_ p.set_no i{border:1px solid #ccc; background:url(../img/background/icon_charging.png) center -55px no-repeat #E2E2E2; background-size:14px}
+.charging_set_ p.set_no i{border:1px solid #ccc; background:url(../img/background/icon_charging.png) center -55px no-repeat #E2E2E2; background-size:14px} */
 
 
 .main_menu_box{position: relative;width: 1440px;margin: 20px auto 0; text-align:center}

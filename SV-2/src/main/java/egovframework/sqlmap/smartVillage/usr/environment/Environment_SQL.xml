@@ -9,9 +9,71 @@
 		<result property="thingModelAttributeType" column="thing_model_attribute_type" columnIndex="3"/>
 		<result property="thingModelAttributeValue" column="thing_model_attribute_value" columnIndex="4"/>
 	</resultMap>
+	<resultMap id="invironmentChartInfo" class="egovframework.smartVillage.usr.environment.vo.InvironmentChartVO">
+		<result property="thingModelAttributeName" column="thing_model_attribute_name" columnIndex="1"/>
+		<result property="thingModelAttributeType" column="thing_model_attribute_type" columnIndex="2"/>
+		<result property="thingModelAttributeValue" column="thing_model_attribute_value" columnIndex="3"/>
+		<result property="measurementTime" column="measurement_time" columnIndex="4"/>
+	</resultMap>
 	
 	<select id="EnvironmentDAO.selectEnvironmentInfo" parameterClass="string" resultMap="invironmentInfo" >
-		SELECT
+		WITH ranked_data AS (
+		    SELECT 
+		        id,
+		        CASE
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0001' THEN '주출입구'
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0002' THEN '도보출입구'
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0003' THEN '1단지출입구'
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0004' THEN '스마트플라자'
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0005' THEN '공용공간'
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0006' THEN '코리도1'
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0007' THEN '코리도2'
+		            WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0008' THEN '코리도3'
+		        END AS thing_model_attribute_name,
+		        #attributeType# AS thing_model_attribute_type,
+		        CASE
+		            WHEN #attributeType# = 'humidity' THEN humidity
+		            WHEN #attributeType# = 'temperature' THEN air_temperature
+		            WHEN #attributeType# = 'fine_dust' THEN pm10
+		            WHEN #attributeType# = 'ultra_particles' THEN pm25
+		            WHEN #attributeType# = 'noise_pollution' THEN noise
+		            WHEN #attributeType# = 'ilumination' THEN iluminance
+		        END AS thing_model_attribute_value,
+		        ROW_NUMBER() OVER (PARTITION BY 
+		                            CASE
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0001' THEN '주출입구'
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0002' THEN '도보출입구'
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0003' THEN '1단지출입구'
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0004' THEN '스마트플라자'
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0005' THEN '공용공간'
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0006' THEN '코리도1'
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0007' THEN '코리도2'
+		                                WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0008' THEN '코리도3'
+		                            END
+		                            ORDER BY measurement_time DESC) AS rn
+		    FROM
+		        smartpole1
+		    WHERE 
+		        TO_CHAR(TO_TIMESTAMP(measurement_time, 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'), 'MI') BETWEEN '00' AND '10'
+		        AND TO_CHAR(TO_TIMESTAMP(measurement_time, 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'), 'YYYY-MM-DD HH24:00:00')
+		            BETWEEN TO_CHAR(NOW() - INTERVAL '1 month' - INTERVAL '15 day' - INTERVAL '6 hours', 'YYYY-MM-DD HH24:00:00') 
+		            AND TO_CHAR(NOW() - INTERVAL '1 month' - INTERVAL '15 day', 'YYYY-MM-DD HH24:00:00')
+		)
+		SELECT 
+		    id AS thing_model_attribute_id,
+		    thing_model_attribute_name,
+		    thing_model_attribute_type,
+		    thing_model_attribute_value
+		FROM 
+		    ranked_data
+		WHERE 
+		    rn = 1
+		ORDER BY 
+		    id DESC
+		LIMIT 8;
+		
+		
+		<!-- SELECT
 	    id AS thing_model_attribute_id,
 	    CASE
 	        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0001' THEN '주출입구'
@@ -36,7 +98,9 @@
 	    smartpole1
 	ORDER BY
 	    thing_model_attribute_id DESC
-	LIMIT 8;
+	LIMIT 8; -->
+	
+	
 		<!-- SELECT
 			thing_model_attribute_id,
 			thing_model_attribute_name,
@@ -60,5 +124,35 @@
 			)
 		ORDER BY
 			thing_model_attribute_id -->
+	</select>
+	<select id="EnvironmentDAO.selectEnvironmentUsageChartData" parameterClass="string" resultMap="invironmentChartInfo" >
+		SELECT DISTINCT
+		    CASE
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0001' THEN '주출입구'
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0002' THEN '도보출입구'
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0003' THEN '1단지출입구'
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0004' THEN '스마트플라자'
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0005' THEN '공용공간'
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0006' THEN '코리도1'
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0007' THEN '코리도2'
+		        WHEN SUBSTRING(thing FROM LENGTH(thing) - 3) = '0008' THEN '코리도3'
+		    END AS thing_model_attribute_name,
+		    #attributeType# AS thing_model_attribute_type,
+		    CASE
+			        WHEN #attributeType# = 'humidity' THEN humidity
+					WHEN #attributeType# = 'temperature' THEN air_temperature
+					WHEN #attributeType# = 'fine_dust' THEN pm10
+					WHEN #attributeType# = 'ultra_particles' THEN pm25
+					WHEN #attributeType# = 'noise_pollution' THEN noise
+					WHEN #attributeType# = 'ilumination' THEN iluminance
+			    END AS thing_model_attribute_value,
+		    TO_CHAR(TO_TIMESTAMP(measurement_time, 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'), 'HH24:MI:SS') AS measurement_time
+		FROM smartpole1
+		WHERE 
+		    TO_CHAR(TO_TIMESTAMP(measurement_time, 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'), 'MI') BETWEEN '00' AND '10'
+		    AND TO_CHAR(TO_TIMESTAMP(measurement_time, 'YYYY-MM-DD"T"HH24:MI:SS.US"Z"'), 'YYYY-MM-DD HH24:00:00')
+		    BETWEEN TO_CHAR(NOW() - INTERVAL '1 month' - INTERVAL '15 day' - INTERVAL '5 hours', 'YYYY-MM-DD HH24:00:00') 
+		    AND TO_CHAR(NOW() - INTERVAL '1 month' - INTERVAL '15 day', 'YYYY-MM-DD HH24:00:00')
+		ORDER BY measurement_time;
 	</select>
 </sqlMap>

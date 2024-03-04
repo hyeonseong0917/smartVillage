@@ -202,7 +202,7 @@
 			<h4>소음</h4>
 		</div>
 		<!--컨텐츠 타이틀 : e  -->
-		
+		<div id="chart_div" style="width: 400px; height: 200px; position: absolute; top: 0px; right: 0px;"></div>		
 		<c:forEach items="${environmentInfo}" var="environmentInfo" varStatus="status">
 			<a class="" href="#none">
 				<p id="step_0${status.count}" class="_step_04">
@@ -216,3 +216,111 @@
 		</c:forEach>
 	</div>
 </div>
+<script type="text/javascript">
+$(document).ready(function() {
+    var specialDiv = $('#chart_div');
+    console.log(specialDiv);
+    $('.villageMap a p').hover(
+        function() {
+        	
+    		var textContent = $(this).find('span.arrow_box').text();
+            let firstLine = textContent.split('\n')[1];
+
+	         // 공백 제거
+	         let curPos = firstLine.replace(/\s/g, '');
+	
+	         let info=[];
+        	$.getJSON("${pageContext.request.contextPath}/smartVillage/environment/getChartData.mdo", {tabId:encodeURI('noise_pollution')}, function(json){
+        		$(this).find('span.arrow_box').css('display', 'none');
+        		var jsonData = json.environmentChartInfo;
+        		console.log(jsonData);
+        		if(jsonData == undefined || jsonData == ""){
+    				return;
+    			} else {
+    				console.log(jsonData);
+    			}
+        		/* console.log(curPos); // 출력: "Thisis" */
+        		let arr=[];
+        		for(var i=0;i<jsonData.length;++i){
+        			if(jsonData[i].thingModelAttributeName==curPos){
+        				arr.push(jsonData[i]);
+        			}
+        		}
+        		/* console.log(arr); */
+        		let hashMap={};
+        		
+        		for(var i=0;i<arr.length;++i){
+        			var curTime=arr[i].measurementTime;
+        			var curClock=curTime.substring(0,2);
+        			if(!(curClock in hashMap)){
+        				hashMap[curClock]=1;
+        				info.push(arr[i]);
+        			}
+        		}
+        		var chartData=[
+        			['시','소음']
+        		];
+        		for(var i=0;i<info.length;++i){
+    				let tmpPos=[];
+    				tmpPos.push(info[i].measurementTime.substring(0,2)+"시")
+    				tmpPos.push(parseInt(info[i].thingModelAttributeValue));
+    				chartData.push(tmpPos);
+    			}	
+                google.charts.load('current', {'packages':['corechart']});
+                google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable(chartData);
+                    var view = new google.visualization.DataView(data);
+                    view.setColumns([
+    					0,
+    					1,  // 전년 물 사용량 열
+    				    {
+    				        calc: function(dataTable, rowIndex) {
+    				            // 소수점 둘째 자리까지 반올림하여 실수 값을 반환합니다.
+    				            return parseFloat(dataTable.getValue(rowIndex, 1)).toFixed(2);
+    				        },
+    				        sourceColumn: 1,
+    				        type: "string",
+    				        role: "annotation"
+    				    },
+
+                        ]);
+                    var options = {
+                        title: '실시간 소음',
+                        curveType: 'function', // 꺾은선 그래프로 설정
+                        legend: { position: 'bottom' },
+                        fontSize: 7,
+                        pointSize: 5, // 데이터 포인트 크기 지정
+                        pointShape: { type: 'circle' },
+                        annotations: {
+    				        textStyle: {
+    				            fontSize: 7,   // 원하는 폰트 크기
+    				            bold: true,     // 굵게 설정
+    				        }
+    				    },
+    				    backgroundColor: '#74ada7',
+    				    /* backgroundColor: '#89c756', */
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+                    /* chart.draw(data, options); */
+                    chart.draw(view, options);
+                    
+                }
+
+                $(this).find('span.arrow_box').css('display', 'block');
+                specialDiv.show();
+                
+        	})
+        	var mouseX = event.pageX; // 마우스의 현재 x좌표
+            var mouseY = event.pageY; // 마우스의 현재 y좌표
+            console.log("마우스의 현재 위치 - x: " + mouseX + ", y: " + mouseY);
+            var chartDiv = document.getElementById('chart_div');
+            chartDiv.style.position = 'absolute';
+            /* chartDiv.style.left = mouseX + 30 + 'px';
+            chartDiv.style.top = mouseY - 300 + 'px'; */
+        },
+    );
+});
+</script>

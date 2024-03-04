@@ -22,7 +22,6 @@ public class WaterEnergyDAO extends EgovComAbstractDAO {
 		return (UsageVo) select("WaterEnergyDAO.selectHeatingUsage", houseDongHo);
 	}
 	public UsageVo selectCoolingUsage(String houseDongHo) throws Exception {
-		System.out.println("coolingDAO");
 		return (UsageVo) select("WaterEnergyDAO.selectCoolingUsage", houseDongHo);
 	}
 	

@@ -10,6 +10,7 @@ import egovframework.rte.fdl.cmmn.EgovAbstractServiceImpl;
 import egovframework.smartVillage.usr.environment.dao.EnvironmentDAO;
 import egovframework.smartVillage.usr.environment.service.EnvironmentService;
 import egovframework.smartVillage.usr.environment.vo.InvironmentInfoVO;
+import egovframework.smartVillage.usr.environment.vo.InvironmentChartVO;
 
 @Service("environmentService")
 public class EnvironmentServiceImpl extends EgovAbstractServiceImpl implements EnvironmentService {
@@ -21,4 +22,10 @@ public class EnvironmentServiceImpl extends EgovAbstractServiceImpl implements E
 	public List<InvironmentInfoVO> selectEnvironmentInfo(String attributeType) throws Exception {
 		return environmentDAO.selectEnvironmentInfo(attributeType);
 	}
+	
+	@Override
+	public List<InvironmentChartVO> selectEnvironmentUsageChartData(String attributeType) throws Exception{
+		return environmentDAO.selectEnvironmentUsageChartData(attributeType);
+	}
+	
 }

@@ -61,7 +61,8 @@ public class Board implements Serializable {
 	/**
 	 * 부모글번호
 	 */
-	private String parnts = "0";
+//	private String parnts = "0";
+	private long parnts = 0;
 	/**
 	 * 조회수
 	 */
@@ -73,7 +74,8 @@ public class Board implements Serializable {
 	/**
 	 * 답장위치
 	 */
-	private String replyLc = "0";
+//	private String replyLc = "0";
+	private int replyLc = 0;
 	/**
 	 * 정렬순서
 	 */
@@ -232,7 +234,10 @@ public class Board implements Serializable {
 	 * parnts attribute를 리턴한다.
 	 * @return the parnts
 	 */
-	public String getParnts() {
+//	public String getParnts() {
+//		return parnts;
+//	}
+	public long getParnts() {
 		return parnts;
 	}
 
@@ -240,7 +245,10 @@ public class Board implements Serializable {
 	 * parnts attribute 값을 설정한다.
 	 * @param parnts the parnts to set
 	 */
-	public void setParnts(String parnts) {
+//	public void setParnts(String parnts) {
+//		this.parnts = parnts;
+//	}
+	public void setParnts(long parnts) {
 		this.parnts = parnts;
 	}
 
@@ -280,7 +288,10 @@ public class Board implements Serializable {
 	 * replyLc attribute를 리턴한다.
 	 * @return the replyLc
 	 */
-	public String getReplyLc() {
+//	public String getReplyLc() {
+//		return replyLc;
+//	}
+	public int getReplyLc() {
 		return replyLc;
 	}
 
@@ -288,7 +299,10 @@ public class Board implements Serializable {
 	 * replyLc attribute 값을 설정한다.
 	 * @param replyLc the replyLc to set
 	 */
-	public void setReplyLc(String replyLc) {
+//	public void setReplyLc(String replyLc) {
+//		this.replyLc = replyLc;
+//	}
+	public void setReplyLc(int replyLc) {
 		this.replyLc = replyLc;
 	}
 

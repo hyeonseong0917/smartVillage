@@ -106,7 +106,7 @@
 					<p class="m_01"><a href="${pageContext.request.contextPath}/smartVillage/waterEnergy/waterEnergyUsage.mdo"><i></i>Water & Energy</a></p>
 					<p class="m_02"><a href="${pageContext.request.contextPath}/smartVillage/environment/environmentInfo.mdo"><i></i>Environment</a></p>
 					<p class="m_03"><a href="${pageContext.request.contextPath}/smartVillage/carCare/carCare.mdo"><i></i>Car Care</a></p>
-					<p class="m_04"><a href="${pageContext.request.contextPath}/smartVillage/cctv/cctv.mdo"><i></i>CCTV</a></p>
+					<%-- <p class="m_04"><a href="${pageContext.request.contextPath}/smartVillage/cctv/cctv.mdo"><i></i>CCTV</a></p> --%>
 					<p class="m_05"><a href="${pageContext.request.contextPath}/smartVillage/board/selectBoardList.mdo?bbsId=BBSMSTR_000000000001"><i></i>Community</a></p>
 					<p class="m_06"><a href="${pageContext.request.contextPath}/smartVillage/board/selectBoardList.mdo?bbsId=BBSMSTR_000000000003"><i></i>Notice</a></p>
 				</div>
@@ -173,7 +173,7 @@
 					<h3><a href="${pageContext.request.contextPath}/smartVillage/waterEnergy/waterEnergyUsage.mdo" class="m01"><em>Water & Energy</em></a></h3>
 					<h3><a href="${pageContext.request.contextPath}/smartVillage/environment/environmentInfo.mdo" class="m02"><em>Environment</em></a></h3>
 					<h3><a href="${pageContext.request.contextPath}/smartVillage/carCare/carCare.mdo" class="m03"><em>Car Care</em></a></h3>
-					<h3><a href="${pageContext.request.contextPath}/smartVillage/cctv/cctv.mdo" class="m04"><em>CCTV</em></a></h3> 
+					<%-- <h3><a href="${pageContext.request.contextPath}/smartVillage/cctv/cctv.mdo" class="m04"><em>CCTV</em></a></h3>  --%>
 					<h3><a href="${pageContext.request.contextPath}/smartVillage/board/selectBoardList.mdo?bbsId=BBSMSTR_000000000001" class="m05"><em>Community</em></a></h3>
 					<h3><a href="${pageContext.request.contextPath}/smartVillage/board/selectBoardList.mdo?bbsId=BBSMSTR_000000000003" class="m06"><em>notice</em></a></h3>
 				</div>
