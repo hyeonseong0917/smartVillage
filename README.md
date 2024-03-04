@@ -60,341 +60,11 @@
 
 # WaterEnergy
 
-1. 냉방 탭 추가
-2. 전기 탭에 전기 송전량 추가 및 전년도 전기 송전량을 그래프로 표시
+1. 전기 탭에 전기 송전량 추가 및 전년도 전기 송전량을 그래프로 표시
+2. 냉방 탭 추가
 3. WaterEnergy_SQL.xml의 모든 쿼리 수정
 
-### 1. 냉방 탭 추가
-![img](./images/4.png)
-- SV/src/webapp/smartVillage/m_01 디렉토리의 _02.html, _03.html, _04.html, _05.html 수정
-- <div class=*"topM_box"*> 부분에 냉방 하이퍼링크 추가
-    
-    ```java
-    <p><a href="_03.html" class="m_03"><i ></i>냉방</a></p>
-    ```
-    
-- _03.html이 냉방 탭에 관련된 html이라 존재하지 않을 수 있습니다. 만약 존재하지 않을 경우 첨부한 프로젝트의 _03.html파일을 복사 붙여넣기 해주세요.
-
-- WaterEnergy_SQL.xml
-    - 쿼리문 2개를 사용합니다.
-    
-    ```bash
-    // 현재 사용량과 전년도 오늘 날짜의 사용량을 가져오는 쿼리의 id 선언
-    <select id="WaterEnergyDAO.selectCoolingUsage" parameterClass="string" resultMap="usageInfo" >
-    
-    // 현재 기준으로 6개월 전까지의 사용량과 전년도 기준 6개월 전까지의 사용량을 가져오는 쿼리의 id 선언
-    <select id="WaterEnergyDAO.selectCoolingUsageChartData" parameterClass="string" resultMap="usageChartInfo" >
-    ```
-    
-- 현재 사용량과 전년도 오늘 날짜의 사용량을 가져오는 selectCoolingUsage 쿼리를 
-작성합니다. 쿼리는 다음 값들을 반환합니다.
-    - 현재 날짜의 월
-    - 해당 현재 날짜의 사용량
-    - 전년도 현재 날짜의 월
-    - 전년도 현재 날짜의 사용량
-    
-    ```sql
-    <select id="WaterEnergyDAO.selectCoolingUsage" parameterClass="string" resultMap="usageInfo" >
-            SELECT
-                date_tab.recent_reg_date AS recent_reg_date,
-                (
-                    SELECT MAX("cooling_usage_month")
-                    FROM household_energy_msrmt_system1
-                    WHERE "dongho" = #houseDongHo#
-                    AND "reg_date" = date_tab.recent_reg_date
-                    GROUP BY "reg_date"
-                    ORDER BY MAX("cooling_usage_month") DESC
-                    LIMIT 1
-                ) AS recent_usage,
-                date_tab.prev_reg_date AS prev_reg_date,
-                (
-                    SELECT MAX("cooling_usage_month")
-                    FROM household_energy_msrmt_system1
-                    WHERE "dongho" = #houseDongHo#
-                    AND "reg_date" = date_tab.prev_reg_date
-                    GROUP BY "reg_date"
-                    ORDER BY MAX("cooling_usage_month") DESC
-                    LIMIT 1
-                ) AS prev_usage
-            FROM
-                household_energy_msrmt_system1,
-                (
-                    SELECT
-                        "dongho",
-                        (
-                            SELECT MAX("reg_date")
-                            FROM household_energy_msrmt_system1
-                            WHERE TO_TIMESTAMP("reg_date", 'YYYY-MM-DD"T"HH24:MI') BETWEEN (NOW() - INTERVAL '6 months') AND NOW()
-                                AND "dongho"=#houseDongHo#
-                        ) AS "recent_reg_date",
-                        (
-                            SELECT MAX("reg_date")
-                            FROM household_energy_msrmt_system1
-                            WHERE TO_TIMESTAMP("reg_date", 'YYYY-MM-DD"T"HH24:MI')=DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '1 year')
-                                AND "dongho"=#houseDongHo#
-                        ) AS "prev_reg_date"
-                    FROM
-                        household_energy_msrmt_system1
-                    WHERE
-                        "dongho" = #houseDongHo#
-                    GROUP BY
-                        "dongho"
-                ) date_tab
-            WHERE
-                household_energy_msrmt_system1."dongho" = date_tab."dongho"
-            ORDER BY "cooling_usage_month" DESC
-            LIMIT 1;
-    ```
-    
-
-- 현재 기준으로 6개월 전까지의 사용량과 전년도 기준 6개월 전까지의 사용량을 가져오는 selectCoolingUsageChartData 쿼리를 작성합니다. 쿼리는 다음 값들을 반환합니다.
-    - 년
-    - 월
-    - 해당 년 월에 사용한 에너지량
-    - 해당 년 월 기준 1년 전에 사용한 에너지량
-    
-    ```sql
-    <select id="WaterEnergyDAO.selectCoolingUsageChartData" parameterClass="string" resultMap="usageChartInfo" >
-    SELECT
-                CONCAT(CAST(recent_usage.reg_year AS VARCHAR),'년') AS reg_year,
-                CONCAT(LPAD(CAST(recent_usage.reg_month AS VARCHAR), 2, '0'),'월') AS reg_month,
-                recent_usage.cooling_usage_month AS recent_usages,
-                prev_usage.cooling_usage_month AS prev_usages
-            FROM
-                (
-                    SELECT
-                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_year,
-                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_month,
-                        MAX(cooling_usage_month) AS cooling_usage_month,
-                        dongho
-                    FROM
-                        household_energy_msrmt_system1
-                    WHERE
-                        dongho = #houseDongHo#
-                        AND TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI') BETWEEN DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '7 months') AND (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 month' - INTERVAL '1 day')
-                    GROUP BY
-                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
-                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
-                        dongho
-                    ORDER BY
-                        reg_year DESC, reg_month DESC
-                    LIMIT 6
-                ) recent_usage,
-                (
-                    SELECT
-                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_year,
-                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_month,
-                        MAX(cooling_usage_month) AS cooling_usage_month,
-                        dongho
-                    FROM
-                        household_energy_msrmt_system1
-                    WHERE
-                        dongho = #houseDongHo#
-                        AND TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI') BETWEEN DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '7 months' - INTERVAL '1 year') AND (DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '1 year') + INTERVAL '1 month' - INTERVAL '1 day')
-                    GROUP BY
-                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
-                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
-                        dongho
-                    ORDER BY
-                        reg_year DESC, reg_month DESC
-                    LIMIT 6 
-                ) prev_usage
-            WHERE
-                recent_usage.reg_month = prev_usage.reg_month
-            ORDER BY
-                reg_year ASC, reg_month ASC;
-    ```
-    
-- WaterEnergyDAO.java
-    - selectCoolingUsage 메소드 추가
-        - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
-        - houseDongHo매개변수를 쿼리에 전달합니다.
-        - 실행한 쿼리의 결과를 UsageVo라는 객체 형태로 매핑시킵니다.
-        
-        ```java
-        @Repository("waterEnergyDAO")
-        public class WaterEnergyDAO extends EgovComAbstractDAO {
-            //code
-            public UsageVo selectCoolingUsage(String houseDongHo) throws Exception {
-                return (UsageVo) select("WaterEnergyDAO.selectCoolingUsage", houseDongHo);
-            }
-        }
-        ```
-        
-        - select 함수는 WaterEnergyDAO 클래스에서 상속받은 EgovComAbstractDAO 클래스의 메소드로, 데이터베이스 액세스를 단순화를 위해 사용합니다.
-    
-    - SelectCoolingUsageChartData 메소드 추가
-        - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
-        - houseDongHo매개변수를 쿼리에 전달합니다.
-        - 실행한 쿼리의 결과를 UsageChartVo라는 객체들의 List 형태로 매핑시킵니다.
-        
-        ```java
-        @Repository("waterEnergyDAO")
-        public class WaterEnergyDAO extends EgovComAbstractDAO {
-            //code
-            public List<UsageChartVo> selectCoolingUsageChartData(String houseDongHo) throws Exception {
-                return (List<UsageChartVo>) list("WaterEnergyDAO.selectCoolingUsageChartData", houseDongHo);
-            }
-        }
-        ```
-        
-        - list함수는 WaterEnergyDAO 클래스에서 상속받은 EgovComAbstractDAO 클래스의 메소드로, 데이터베이스로부터 여러 결과를 반환하기 위해 사용합니다.
-
-- WaterEnergyService.java
-    - WaterEnergyServiceImpl.java에서 구현할 interface 선언
-        
-        ```java
-        public interface WaterEnergyService {
-            //code
-            public UsageVo selectCoolingUsage(String houseDongHo) throws Exception;
-            public List<UsageChartVo> selectCoolingUsageChartData(String houseDongHo) throws Exception;
-        }
-        
-        ```
-        
-- WaterEnergyServiceImpl.java
-    - 인터페이스에서 선언된 selectCoolingUsage()와 selectCoolingUsageChartData()를 구현
-        
-        ```java
-        @Service("waterEnergyService")
-        public class WaterEnergyServiceImpl extends EgovAbstractServiceImpl implements WaterEnergyService {
-            //code
-            @Override
-            public UsageVo selectCoolingUsage(String houseDongHo) throws Exception {
-                return waterEnergyDAO.selectCoolingUsage(houseDongHo);
-            }
-        
-            @Override
-            public List<UsageChartVo> selectCoolingUsageChartData(String houseDongHo) throws Exception {
-                return waterEnergyDAO.selectCoolingUsageChartData(houseDongHo);
-            }
-        }
-        ```
-        
-- WaterEnergyController.java
-    - selectUsageInfo(): model(MVC 디자인 패턴에서의 데이터 상태)에 쿼리 결과를 저장하여 뷰에 데이터를 저장함
-        - cooling case 추가
-        - model의 “usageInfo” key에 waterEnergyService.selectHeatingUsage(user.getAddress())를 추가
-        
-        ```java
-        @RequestMapping("/smartVillage/waterEnergy/waterEnergyUsage.mdo")
-        public String selectUsageInfo(@RequestParam(value = "tabId", defaultValue="water") String tabId, Model model) throws Exception {
-            switch(tabId) {
-                        // case "cooling" 추가
-                        case "cooling":
-                            model.addAttribute("usageInfo", waterEnergyService.selectCoolingUsage(user.getAddress()));
-                            viewName= "egovframework/smartVillage/usr/waterEnergy/cooling";
-                            break;
-        }
-        ```
-        
-    - selectChartData(): ModelAndView(MVC 디자인 패턴에서 데이터 상태와 뷰를 함께 처리하는 객체)를 생성하여 반환함
-        - cooling case 추가
-        - ModelAndView의 addObject() 메소드를 이용해 “chartInfo” key에 
-        waterEnergyService.selectCoolingUsageChartData(user.getAddress())를 추가
-        
-        ```java
-        @RequestMapping("/smartVillage/waterEnergy/getChartData.mdo")
-        public ModelAndView selectChartData(@RequestParam(value = "tabId", defaultValue="water") String tabId, SessionStatus status) throws Exception {
-            switch(tabId) {
-                    // cooling case 추가
-                    case "cooling":
-                        modelAndView.addObject("chartInfo", waterEnergyService.selectCoolingUsageChartData(user.getAddress()));
-                        break;
-        }
-        ```
-        
-
-- water.jsp
-    - drawChart() function을 수정합니다.
-        - jsonData는 각 월 당 다음과 같은 데이터들로 이루어져 있습니다.
-            - 년
-            - 월
-            - 현재 사용량
-            - 전 년도 사용량
-            
-            data라는 배열에 년+월, 현재 사용량, 전 년도 사용량 데이터를 추가합니다.
-            
-            차트를 표시하는 데 사용하는 chartData 배열에 data를 추가합니다.
-            
-            ```java
-            let chartData = [['월', '전년 냉방 사용량', '냉방 사용량' ]];
-                            for(var i=0; i<jsonData.length; i++){
-                                /* let prevRecentDifference = jsonData[i].prevUsages - jsonData[i].recentUsages; */
-                                let data = [jsonData[i].regYear+" "+jsonData[i].regMonth, Number(jsonData[i].prevUsages.toFixed(4)), Number(jsonData[i].recentUsages.toFixed(4))];
-                                chartData.push(data);
-                            }
-            ```
-            
-        - chartData라는 배열을 Google Visualization API에서 지원하는 데이터 테이블 형식으로 변환하고 데이터 테이블을 기반으로 데이터 뷰를 생성합니다.
-            
-            ```java
-            var data = google.visualization.arrayToDataTable(chartData);
-            var view = new google.visualization.DataView(data);
-            ```
-            
-        - 그래프 위에 숫자를 표시하고 전년 물 사용량과 현재 물 사용량 열 표시를 위해 setColumns 메소드를 사용합니다.
-            
-            ```java
-            view.setColumns([
-                                0,
-                                1,  // 전년 냉방 사용량 열
-                                {
-                                    calc: "stringify",
-                                    sourceColumn: 1,
-                                    type: "string",
-                                    role: "annotation"
-                                },
-                                2,  // 냉방 사용량 열
-                                {
-                                    calc: "stringify",
-                                    sourceColumn: 2,
-                                    type: "string",
-                                    role: "annotation"
-                                }
-                                ]);
-            ```
-            
-        - options의 annotation에 textStyle을 추가해 그래프 위에 숫자를 표시합니다.
-            
-            ```java
-            var options = {
-                                title: "월별 냉방 사용량 추이",
-                                height: 200,
-                                legend: { position: "bottom" },
-                                tooltip : {
-                                      /* trigger: 'both', */
-                                      isHtml: true,
-                                      showColorCode: true,
-                                      trigger: 'both',
-                                    },
-                                annotations: {
-                                    textStyle: {
-                                       fontSize: 10,   // 원하는 폰트 크기
-                                       bold: true,     // 굵게 설정
-                                    }
-                                }
-                            };
-            ```
-            
-        - 데이터를 시각화하고 그래프를 생성합니다.
-            
-            ```java
-            var formatter = new google.visualization.NumberFormat({ pattern: '0' });
-            formatter.format(data, 1);
-            formatter.format(data, 2);
-                            
-            for (var i = 0; i < jsonData.length; i++) {
-                data.setFormattedValue(i, 1, data.getValue(i, 1));
-                data.setFormattedValue(i, 2, data.getValue(i, 2));
-            }
-                                            
-            var chart = new google.visualization.ColumnChart($(".graph_box")[0]);
-            chart.draw(view, options);
-            ```
-            
-
-### 2. 전기 탭에 전기 송전량 및 전년 전기 송전량 추가
+### 1. 전기 탭에 전기 송전량 및 전년 전기 송전량 추가
 ![img](./images/3.png)
 - ExportChartVo.java
     - 송전량 변수 추가를 위해 전기 에너지에 대해 ExportChartVo객체 생성
@@ -726,7 +396,336 @@
             
             chart.draw(view, options);
             ```
+
+### 2. 냉방 탭 추가
+![img](./images/4.png)
+- SV/src/webapp/smartVillage/m_01 디렉토리의 _02.html, _03.html, _04.html, _05.html 수정
+- <div class=*"topM_box"*> 부분에 냉방 하이퍼링크 추가
+    
+    ```java
+    <p><a href="_03.html" class="m_03"><i ></i>냉방</a></p>
+    ```
+    
+- _03.html이 냉방 탭에 관련된 html이라 존재하지 않을 수 있습니다. 만약 존재하지 않을 경우 첨부한 프로젝트의 _03.html파일을 복사 붙여넣기 해주세요.
+
+- WaterEnergy_SQL.xml
+    - 쿼리문 2개를 사용합니다.
+    
+    ```bash
+    // 현재 사용량과 전년도 오늘 날짜의 사용량을 가져오는 쿼리의 id 선언
+    <select id="WaterEnergyDAO.selectCoolingUsage" parameterClass="string" resultMap="usageInfo" >
+    
+    // 현재 기준으로 6개월 전까지의 사용량과 전년도 기준 6개월 전까지의 사용량을 가져오는 쿼리의 id 선언
+    <select id="WaterEnergyDAO.selectCoolingUsageChartData" parameterClass="string" resultMap="usageChartInfo" >
+    ```
+    
+- 현재 사용량과 전년도 오늘 날짜의 사용량을 가져오는 selectCoolingUsage 쿼리를 
+작성합니다. 쿼리는 다음 값들을 반환합니다.
+    - 현재 날짜의 월
+    - 해당 현재 날짜의 사용량
+    - 전년도 현재 날짜의 월
+    - 전년도 현재 날짜의 사용량
+    
+    ```sql
+    <select id="WaterEnergyDAO.selectCoolingUsage" parameterClass="string" resultMap="usageInfo" >
+            SELECT
+                date_tab.recent_reg_date AS recent_reg_date,
+                (
+                    SELECT MAX("cooling_usage_month")
+                    FROM household_energy_msrmt_system1
+                    WHERE "dongho" = #houseDongHo#
+                    AND "reg_date" = date_tab.recent_reg_date
+                    GROUP BY "reg_date"
+                    ORDER BY MAX("cooling_usage_month") DESC
+                    LIMIT 1
+                ) AS recent_usage,
+                date_tab.prev_reg_date AS prev_reg_date,
+                (
+                    SELECT MAX("cooling_usage_month")
+                    FROM household_energy_msrmt_system1
+                    WHERE "dongho" = #houseDongHo#
+                    AND "reg_date" = date_tab.prev_reg_date
+                    GROUP BY "reg_date"
+                    ORDER BY MAX("cooling_usage_month") DESC
+                    LIMIT 1
+                ) AS prev_usage
+            FROM
+                household_energy_msrmt_system1,
+                (
+                    SELECT
+                        "dongho",
+                        (
+                            SELECT MAX("reg_date")
+                            FROM household_energy_msrmt_system1
+                            WHERE TO_TIMESTAMP("reg_date", 'YYYY-MM-DD"T"HH24:MI') BETWEEN (NOW() - INTERVAL '6 months') AND NOW()
+                                AND "dongho"=#houseDongHo#
+                        ) AS "recent_reg_date",
+                        (
+                            SELECT MAX("reg_date")
+                            FROM household_energy_msrmt_system1
+                            WHERE TO_TIMESTAMP("reg_date", 'YYYY-MM-DD"T"HH24:MI')=DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '1 year')
+                                AND "dongho"=#houseDongHo#
+                        ) AS "prev_reg_date"
+                    FROM
+                        household_energy_msrmt_system1
+                    WHERE
+                        "dongho" = #houseDongHo#
+                    GROUP BY
+                        "dongho"
+                ) date_tab
+            WHERE
+                household_energy_msrmt_system1."dongho" = date_tab."dongho"
+            ORDER BY "cooling_usage_month" DESC
+            LIMIT 1;
+    ```
+    
+
+- 현재 기준으로 6개월 전까지의 사용량과 전년도 기준 6개월 전까지의 사용량을 가져오는 selectCoolingUsageChartData 쿼리를 작성합니다. 쿼리는 다음 값들을 반환합니다.
+    - 년
+    - 월
+    - 해당 년 월에 사용한 에너지량
+    - 해당 년 월 기준 1년 전에 사용한 에너지량
+    
+    ```sql
+    <select id="WaterEnergyDAO.selectCoolingUsageChartData" parameterClass="string" resultMap="usageChartInfo" >
+    SELECT
+                CONCAT(CAST(recent_usage.reg_year AS VARCHAR),'년') AS reg_year,
+                CONCAT(LPAD(CAST(recent_usage.reg_month AS VARCHAR), 2, '0'),'월') AS reg_month,
+                recent_usage.cooling_usage_month AS recent_usages,
+                prev_usage.cooling_usage_month AS prev_usages
+            FROM
+                (
+                    SELECT
+                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_year,
+                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_month,
+                        MAX(cooling_usage_month) AS cooling_usage_month,
+                        dongho
+                    FROM
+                        household_energy_msrmt_system1
+                    WHERE
+                        dongho = #houseDongHo#
+                        AND TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI') BETWEEN DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '7 months') AND (DATE_TRUNC('MONTH', CURRENT_DATE) + INTERVAL '1 month' - INTERVAL '1 day')
+                    GROUP BY
+                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
+                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
+                        dongho
+                    ORDER BY
+                        reg_year DESC, reg_month DESC
+                    LIMIT 6
+                ) recent_usage,
+                (
+                    SELECT
+                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_year,
+                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')) AS reg_month,
+                        MAX(cooling_usage_month) AS cooling_usage_month,
+                        dongho
+                    FROM
+                        household_energy_msrmt_system1
+                    WHERE
+                        dongho = #houseDongHo#
+                        AND TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI') BETWEEN DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '7 months' - INTERVAL '1 year') AND (DATE_TRUNC('MONTH', CURRENT_DATE - INTERVAL '1 year') + INTERVAL '1 month' - INTERVAL '1 day')
+                    GROUP BY
+                        EXTRACT(YEAR FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
+                        EXTRACT(MONTH FROM TO_TIMESTAMP(reg_date, 'YYYY-MM-DD"T"HH24:MI')),
+                        dongho
+                    ORDER BY
+                        reg_year DESC, reg_month DESC
+                    LIMIT 6 
+                ) prev_usage
+            WHERE
+                recent_usage.reg_month = prev_usage.reg_month
+            ORDER BY
+                reg_year ASC, reg_month ASC;
+    ```
+    
+- WaterEnergyDAO.java
+    - selectCoolingUsage 메소드 추가
+        - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
+        - houseDongHo매개변수를 쿼리에 전달합니다.
+        - 실행한 쿼리의 결과를 UsageVo라는 객체 형태로 매핑시킵니다.
+        
+        ```java
+        @Repository("waterEnergyDAO")
+        public class WaterEnergyDAO extends EgovComAbstractDAO {
+            //code
+            public UsageVo selectCoolingUsage(String houseDongHo) throws Exception {
+                return (UsageVo) select("WaterEnergyDAO.selectCoolingUsage", houseDongHo);
+            }
+        }
+        ```
+        
+        - select 함수는 WaterEnergyDAO 클래스에서 상속받은 EgovComAbstractDAO 클래스의 메소드로, 데이터베이스 액세스를 단순화를 위해 사용합니다.
+    
+    - SelectCoolingUsageChartData 메소드 추가
+        - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
+        - houseDongHo매개변수를 쿼리에 전달합니다.
+        - 실행한 쿼리의 결과를 UsageChartVo라는 객체들의 List 형태로 매핑시킵니다.
+        
+        ```java
+        @Repository("waterEnergyDAO")
+        public class WaterEnergyDAO extends EgovComAbstractDAO {
+            //code
+            public List<UsageChartVo> selectCoolingUsageChartData(String houseDongHo) throws Exception {
+                return (List<UsageChartVo>) list("WaterEnergyDAO.selectCoolingUsageChartData", houseDongHo);
+            }
+        }
+        ```
+        
+        - list함수는 WaterEnergyDAO 클래스에서 상속받은 EgovComAbstractDAO 클래스의 메소드로, 데이터베이스로부터 여러 결과를 반환하기 위해 사용합니다.
+
+- WaterEnergyService.java
+    - WaterEnergyServiceImpl.java에서 구현할 interface 선언
+        
+        ```java
+        public interface WaterEnergyService {
+            //code
+            public UsageVo selectCoolingUsage(String houseDongHo) throws Exception;
+            public List<UsageChartVo> selectCoolingUsageChartData(String houseDongHo) throws Exception;
+        }
+        
+        ```
+        
+- WaterEnergyServiceImpl.java
+    - 인터페이스에서 선언된 selectCoolingUsage()와 selectCoolingUsageChartData()를 구현
+        
+        ```java
+        @Service("waterEnergyService")
+        public class WaterEnergyServiceImpl extends EgovAbstractServiceImpl implements WaterEnergyService {
+            //code
+            @Override
+            public UsageVo selectCoolingUsage(String houseDongHo) throws Exception {
+                return waterEnergyDAO.selectCoolingUsage(houseDongHo);
+            }
+        
+            @Override
+            public List<UsageChartVo> selectCoolingUsageChartData(String houseDongHo) throws Exception {
+                return waterEnergyDAO.selectCoolingUsageChartData(houseDongHo);
+            }
+        }
+        ```
+        
+- WaterEnergyController.java
+    - selectUsageInfo(): model(MVC 디자인 패턴에서의 데이터 상태)에 쿼리 결과를 저장하여 뷰에 데이터를 저장함
+        - cooling case 추가
+        - model의 “usageInfo” key에 waterEnergyService.selectHeatingUsage(user.getAddress())를 추가
+        
+        ```java
+        @RequestMapping("/smartVillage/waterEnergy/waterEnergyUsage.mdo")
+        public String selectUsageInfo(@RequestParam(value = "tabId", defaultValue="water") String tabId, Model model) throws Exception {
+            switch(tabId) {
+                        // case "cooling" 추가
+                        case "cooling":
+                            model.addAttribute("usageInfo", waterEnergyService.selectCoolingUsage(user.getAddress()));
+                            viewName= "egovframework/smartVillage/usr/waterEnergy/cooling";
+                            break;
+        }
+        ```
+        
+    - selectChartData(): ModelAndView(MVC 디자인 패턴에서 데이터 상태와 뷰를 함께 처리하는 객체)를 생성하여 반환함
+        - cooling case 추가
+        - ModelAndView의 addObject() 메소드를 이용해 “chartInfo” key에 
+        waterEnergyService.selectCoolingUsageChartData(user.getAddress())를 추가
+        
+        ```java
+        @RequestMapping("/smartVillage/waterEnergy/getChartData.mdo")
+        public ModelAndView selectChartData(@RequestParam(value = "tabId", defaultValue="water") String tabId, SessionStatus status) throws Exception {
+            switch(tabId) {
+                    // cooling case 추가
+                    case "cooling":
+                        modelAndView.addObject("chartInfo", waterEnergyService.selectCoolingUsageChartData(user.getAddress()));
+                        break;
+        }
+        ```
+        
+
+- water.jsp
+    - drawChart() function을 수정합니다.
+        - jsonData는 각 월 당 다음과 같은 데이터들로 이루어져 있습니다.
+            - 년
+            - 월
+            - 현재 사용량
+            - 전 년도 사용량
             
+            data라는 배열에 년+월, 현재 사용량, 전 년도 사용량 데이터를 추가합니다.
+            
+            차트를 표시하는 데 사용하는 chartData 배열에 data를 추가합니다.
+            
+            ```java
+            let chartData = [['월', '전년 냉방 사용량', '냉방 사용량' ]];
+                            for(var i=0; i<jsonData.length; i++){
+                                /* let prevRecentDifference = jsonData[i].prevUsages - jsonData[i].recentUsages; */
+                                let data = [jsonData[i].regYear+" "+jsonData[i].regMonth, Number(jsonData[i].prevUsages.toFixed(4)), Number(jsonData[i].recentUsages.toFixed(4))];
+                                chartData.push(data);
+                            }
+            ```
+            
+        - chartData라는 배열을 Google Visualization API에서 지원하는 데이터 테이블 형식으로 변환하고 데이터 테이블을 기반으로 데이터 뷰를 생성합니다.
+            
+            ```java
+            var data = google.visualization.arrayToDataTable(chartData);
+            var view = new google.visualization.DataView(data);
+            ```
+            
+        - 그래프 위에 숫자를 표시하고 전년 물 사용량과 현재 물 사용량 열 표시를 위해 setColumns 메소드를 사용합니다.
+            
+            ```java
+            view.setColumns([
+                                0,
+                                1,  // 전년 냉방 사용량 열
+                                {
+                                    calc: "stringify",
+                                    sourceColumn: 1,
+                                    type: "string",
+                                    role: "annotation"
+                                },
+                                2,  // 냉방 사용량 열
+                                {
+                                    calc: "stringify",
+                                    sourceColumn: 2,
+                                    type: "string",
+                                    role: "annotation"
+                                }
+                                ]);
+            ```
+            
+        - options의 annotation에 textStyle을 추가해 그래프 위에 숫자를 표시합니다.
+            
+            ```java
+            var options = {
+                                title: "월별 냉방 사용량 추이",
+                                height: 200,
+                                legend: { position: "bottom" },
+                                tooltip : {
+                                      /* trigger: 'both', */
+                                      isHtml: true,
+                                      showColorCode: true,
+                                      trigger: 'both',
+                                    },
+                                annotations: {
+                                    textStyle: {
+                                       fontSize: 10,   // 원하는 폰트 크기
+                                       bold: true,     // 굵게 설정
+                                    }
+                                }
+                            };
+            ```
+            
+        - 데이터를 시각화하고 그래프를 생성합니다.
+            
+            ```java
+            var formatter = new google.visualization.NumberFormat({ pattern: '0' });
+            formatter.format(data, 1);
+            formatter.format(data, 2);
+                            
+            for (var i = 0; i < jsonData.length; i++) {
+                data.setFormattedValue(i, 1, data.getValue(i, 1));
+                data.setFormattedValue(i, 2, data.getValue(i, 2));
+            }
+                                            
+            var chart = new google.visualization.ColumnChart($(".graph_box")[0]);
+            chart.draw(view, options);
+            ```
+                        
 
 ### 3. WaterEnergy_SQL.xml의 모든 쿼리 수정
 
