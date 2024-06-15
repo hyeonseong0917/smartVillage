@@ -25,7 +25,7 @@
 
 ### 1. pom.xml파일
 
-- mysql 드라이버의 dependency를 주석처리 해주고 postgresql 드라이버의 dependency 추가
+- mysql 드라이버의 dependency를 주석처리 하고 postgresql 드라이버의 dependency 추가
     
     ```java
     <!-- <dependency>
@@ -59,10 +59,10 @@
 - url의 value와 username, password는 사용하려는 데이터베이스의 정보 값으로 교체해야 합니다.
 
 # WaterEnergy
-
-1. 전기 탭에 전기 송전량 추가 및 전년도 전기 송전량을 그래프로 표시
+![img](./images/15.png)
+1. 최근 6개월 간 전기 탭에 전기 송전량 추가 및 전년도 전기 송전량을 그래프로 표시
 2. 냉방 탭 추가
-3. WaterEnergy_SQL.xml의 모든 쿼리 수정
+3. 최근 6개월 간의 데이터를 가져오도록 WaterEnergy_SQL.xml 쿼리 작성
 
 ### 1. 전기 탭에 전기 송전량 및 전년 전기 송전량 추가
 ![img](./images/3.png)
