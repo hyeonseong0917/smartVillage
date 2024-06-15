@@ -65,7 +65,7 @@
 - url의 value와 username, password는 사용하려는 데이터베이스의 정보 값으로 교체해야 합니다.
 
 # WaterEnergy
-![img](./images/15.png)
+![img](./images/16.png)
 1. 최근 6개월 간 전기 탭에 전기 송전량 추가 및 전년도 전기 송전량을 그래프로 표시
 2. 냉방 탭 추가
 3. 최근 6개월 간의 데이터를 가져오도록 WaterEnergy_SQL.xml 쿼리 작성
