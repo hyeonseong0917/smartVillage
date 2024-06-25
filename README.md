@@ -240,7 +240,7 @@
             reg_year ASC, reg_month ASC;
     ```
     
-- WaterEnergyDAO.java
+- WaterEnergyDAO.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/dao/WaterEnergyDAO.java
     - List<UsageChartVo> 자료형을 가지는 selectCoolingUsageChartData() 메소드 선언
     - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
     - houseDongHo매개변수를 쿼리에 전달합니다.
@@ -256,7 +256,7 @@
         }
         ```
         
-- WaterEnergyService.java
+- WaterEnergyService.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/service/WaterEnergyService.java
     - WaterEnergyServiceImpl.java에서 구현할 interface 선언
         
         ```java
@@ -265,7 +265,7 @@
         }
         ```
         
-- WaterEnergyServiceImpl.java
+- WaterEnergyServiceImpl.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/service/impl/WaterEnergyServiceImpl.java
     - 인터페이스에서 선언된 selectElectricUsageChartData()를 구현
     
     ```java
@@ -278,7 +278,7 @@
     }
     ```
     
-- WaterEnergyController.java
+- WaterEnergyController.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/web/WaterEnergyController.java
     - selectChartData(): ModelAndView(MVC 디자인 패턴에서 데이터 상태와 뷰를 함께 처리)객체를 생성하여 반환함
     - ModelAndView의 addObject 메소드를 이용해 “chartInfo” key에 
     waterEnergyService.selectElectricUsageChartData(user.getAddress())를 추가
@@ -294,7 +294,7 @@
                 break;
     ```
     
-- electric.jsp
+- electric.jsp: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/webapp/WEB-INF/jsp/egovframework/smartVillage/usr/waterEnergy/electric.jsp
     - drawChart() function을 수정합니다.
         - jsonData는 각 월 당 다음과 같은 데이터들로 이루어져 있습니다.
             - 년
@@ -419,7 +419,7 @@
     
 - _03.html이 냉방 탭에 관련된 html이라 존재하지 않을 수 있습니다. 만약 존재하지 않을 경우 첨부한 프로젝트의 _03.html파일을 복사 붙여넣기 해주세요.
 
-- WaterEnergy_SQL.xml
+- WaterEnergy_SQL.xml: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/sqlmap/smartVillage/usr/waterEnergy/WaterEnergy_SQL.xml
     - 쿼리문 2개를 사용합니다.
     
     ```bash
@@ -549,7 +549,7 @@
                 reg_year ASC, reg_month ASC;
     ```
     
-- WaterEnergyDAO.java
+- WaterEnergyDAO.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/dao/WaterEnergyDAO.java
     - selectCoolingUsage 메소드 추가
         - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
         - houseDongHo매개변수를 쿼리에 전달합니다.
@@ -584,7 +584,7 @@
         
         - list함수는 WaterEnergyDAO 클래스에서 상속받은 EgovComAbstractDAO 클래스의 메소드로, 데이터베이스로부터 여러 결과를 반환하기 위해 사용합니다.
 
-- WaterEnergyService.java
+- WaterEnergyService.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/service/WaterEnergyService.java
     - WaterEnergyServiceImpl.java에서 구현할 interface 선언
         
         ```java
@@ -596,7 +596,7 @@
         
         ```
         
-- WaterEnergyServiceImpl.java
+- WaterEnergyServiceImpl.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/service/impl/WaterEnergyServiceImpl.java
     - 인터페이스에서 선언된 selectCoolingUsage()와 selectCoolingUsageChartData()를 구현
         
         ```java
@@ -615,7 +615,7 @@
         }
         ```
         
-- WaterEnergyController.java
+- WaterEnergyController.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/web/WaterEnergyController.java
     - selectUsageInfo(): model(MVC 디자인 패턴에서의 데이터 상태)에 쿼리 결과를 저장하여 뷰에 데이터를 저장함
         - cooling case 추가
         - model의 “usageInfo” key에 waterEnergyService.selectHeatingUsage(user.getAddress())를 추가
@@ -649,7 +649,7 @@
         ```
         
 
-- water.jsp
+- water.jsp: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/webapp/WEB-INF/jsp/egovframework/smartVillage/usr/waterEnergy/water.jsp
     - drawChart() function을 수정합니다.
         - jsonData는 각 월 당 다음과 같은 데이터들로 이루어져 있습니다.
             - 년
@@ -738,7 +738,7 @@
             ```
                         
 
-### 3. WaterEnergy_SQL.xml의 모든 쿼리 수정
+### 3. WaterEnergy_SQL.xml의 모든 쿼리 수정: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/sqlmap/smartVillage/usr/waterEnergy/WaterEnergy_SQL.xml
 
 - <select id=*"WaterEnergyDAO.selectElectricUsageChartData"* parameterClass=*"string"* resultMap=*"exportChartInfo"* >는 위에서 작성한 전기 탭 쿼리 참조
 - <select id=*"WaterEnergyDAO.selectHotWaterUsage"* parameterClass=*"string"* resultMap=*"usageInfo"* >와 같은 selectUsage는 id=”selectCoolingUsage”에서 에너지 타입 변수만 바꿔서 동일한 쿼리로 작성
@@ -756,7 +756,7 @@
 ### 1. 각 구역 별 가장 최근의 대기량 표시 및 각 구역을 Hover했을 때 현재 시간 기준 6시간 전까지의 대기량 표시
 ![img](./images/7.png)
 - 각 구역 별 가장 최근의 대기량 표시 및 각 구역을 Hover했을 때 현재 시간 기준 6시간 전까지의 대기량 표시
-    - Environment_SQL.xml(데이터베이스 테이블이 달라짐에 따라 모든 쿼리 재작성)
+    - Environment_SQL.xml(데이터베이스 테이블이 달라짐에 따라 모든 쿼리 재작성): https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/sqlmap/smartVillage/usr/environment/Environment_SQL.xml
         
         ```java
         // 빌리지 내 대기환경정보 사용량 표시 및 각 구역 별 가장 최근의 대기량 표시
@@ -871,7 +871,7 @@
                 </select>
             ```
             
-    - EnvironmentDAO.java
+    - EnvironmentDAO.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/environment/dao/EnvironmentDAO.java
         - selectEnvironmentUsageChartData 메소드 추가
             - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
             - attributeType매개변수를 쿼리에 전달합니다.
@@ -884,14 +884,14 @@
                 ```
                 
             - list함수는 WaterEnergyDAO 클래스에서 상속받은 EgovComAbstractDAO 클래스의 메소드로, 데이터베이스로부터 여러 결과를 반환하기 위해 사용됨
-    - EnvironmentService.java
+    - EnvironmentService.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/environment/service/EnvironmentService.java
         - EnvironmentServiceImpl.java에서 구현할 interface에 selectEnvironmentUsageChartData 메소드  추가
             
             ```java
             public List<InvironmentChartVO> selectEnvironmentUsageChartData(String attributeType) throws Exception;
             ```
             
-    - EnvironmentServiceImpl.java
+    - EnvironmentServiceImpl.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/environment/service/impl/EnvironmentServiceImpl.java
         - 인터페이스에서 선언된 selectEnvironmentUsageChartData를 추가로 구현
             
             ```java
@@ -904,7 +904,7 @@
         - 전달된 SQL쿼리의 id를 기반으로 해당 쿼리를 실행합니다.
         - attributeType매개변수를 쿼리에 전달합니다.
         - 실행한 쿼리의 결과를 InvironmentChartVO라는 객체들의 List 형태로 매핑시킵니다.
-    - EnvironmentController.java
+    - EnvironmentController.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/environment/web/EnvironmentController.java
         - selectChartData(): ModelAndView(MVC 디자인 패턴에서 데이터 상태와 뷰를 함께 처리하는 객체)를 생성하여 반환함
             - ModelAndView의 “environmentChartInfo” key에 
             environmentService.selectEnvironmentUsageChartData(tabId)를 추가
@@ -919,7 +919,7 @@
                     }
                 ```
                 
-    - fineDust.jsp(Environment의 다른 환경 정보 jsp파일들도 동일)
+    - fineDust.jsp(Environment의 다른 환경 정보 jsp파일들도 동일): https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/webapp/WEB-INF/jsp/egovframework/smartVillage/usr/environment/fineDust.jsp
         - <div class=”sub_container”>의 <div class=”villageMap”>에 그래프 차트를 나타내는 
         해당 코드 추가
             
@@ -1049,7 +1049,7 @@
 세대 차량 등록현황과 차량 입출차 이벤트 표시
 ![img](./images/13.png)            
 ![img](./images/14.png)            
-    - CarInOutVo.java
+    - CarInOutVo.java: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/carCare/vo/CarInOutVo.java
         - 동호 수, 차량 번호, 입출차 이벤트, 입출차 날짜, 입출차 시간 속성이 매핑된 객체 생성
         
         ```java
