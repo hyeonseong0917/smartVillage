@@ -66,6 +66,7 @@
 
 # WaterEnergy
 ![img](./images/16.png)
+- 코드 디렉토리: https://github.com/hyeonseong0917/smartVillage/tree/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy
 1. 최근 6개월 간 전기 탭에 전기 송전량 추가 및 전년도 전기 송전량을 그래프로 표시
 2. 냉방 탭 추가
 3. 최근 6개월 간의 데이터를 가져오도록 WaterEnergy_SQL.xml 쿼리 작성
