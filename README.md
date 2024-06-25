@@ -67,7 +67,7 @@
 # WaterEnergy
 ![img](./images/16.png)
 - 코드 디렉토리: https://github.com/hyeonseong0917/smartVillage/tree/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy
-- DAO: https://github.com/hyeonseong0917/smartVillage/tree/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy
+- DAO: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/dao/WaterEnergyDAO.java
 - Service: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/service/WaterEnergyService.java
 - VO: https://github.com/hyeonseong0917/smartVillage/tree/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/vo
 - Controller: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/smartVillage/usr/waterEnergy/web/WaterEnergyController.java
