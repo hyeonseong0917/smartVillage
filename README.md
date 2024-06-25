@@ -77,7 +77,7 @@
 
 ### 1. 전기 탭에 전기 송전량 및 전년 전기 송전량 추가
 ![img](./images/3.png)
-- ExportChartVo.java
+- ExportChartVo.java 
     - 송전량 변수 추가를 위해 전기 에너지에 대해 ExportChartVo객체 생성
         - recentExports변수와 prevExports 변수 추가
         
@@ -130,7 +130,7 @@
         }
         ```
         
-- WaterEnergy_SQL.xml
+- WaterEnergy_SQL.xml: https://github.com/hyeonseong0917/smartVillage/blob/main/SV-2/src/main/java/egovframework/sqlmap/smartVillage/usr/waterEnergy/WaterEnergy_SQL.xml
     - 쿼리문 1개를 사용합니다.
     
     ```sql
